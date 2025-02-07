@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PopularFilms from './popularFilms.js';
 
 
 console.log("loading")
@@ -9,7 +8,7 @@ function runtime() {
 
     console.log("Runtime.js is loaded!");
     useEffect(() => {
-        const options = {
+        const options = {   
             method: 'GET',
             headers: {
                 accept: 'application/json',
