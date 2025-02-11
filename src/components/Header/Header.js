@@ -1,5 +1,7 @@
 import React from 'react';
-import searchIcon from '../assets/search-icon2.png';
+import "./Header.css"
+import searchIcon from '../../assets/search-icon2.png';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
@@ -10,7 +12,9 @@ function Header() {
         <img src={searchIcon}></img>
       </div>
       <button class="watchlist">Watchlist</button>
-      <button class="sign-in">Sign In</button>
+      <Link to="/signin">
+        <button class="sign-in">Sign In</button>
+      </Link>
     </header>
   );  
 }
