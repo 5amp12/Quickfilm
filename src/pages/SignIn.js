@@ -1,9 +1,14 @@
 import { useState } from "react";
+import Header from '../components/Header/Header.js';
 import Styles from '../components/styles.css';
 
 function SignIn (){
     return(
-        <p>hello</p>
+        <div>
+          <Header /> 
+            <main>    
+            </main>
+        </div>
     );
 }
 
