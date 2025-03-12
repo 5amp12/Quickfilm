@@ -8,7 +8,7 @@ header {
     color: white;
   }
   header h2 {
-    margin-left: 5px;
+    margin-left: 15px;
     margin-right: 60px;
     text-decoration: none;
   }
@@ -22,11 +22,11 @@ header {
     justify-content: center;
     position: relative;
     width: 100%;
-    /* max-width: 400px; */
+    max-width: 700px;
     margin: auto;
     border: 2px solid purple;
     border-radius: 0px;
-    background-color: white;
+    background-color: white !important;
   }
   .search-container input {
     flex: 1;

@@ -49,13 +49,15 @@ function popularFilms(){
     }
 
     return(
-        <div className="movie-list">
-            {movieList.map((movie) => ( 
-                <div key={movie.id} className="movie-card">
-                    <img src={movie.poster}/> 
-                    <p>{movie.title}</p>
-                </div>
-            ))}
+        <div className="movie-list-container">
+            <div className="movie-list">
+                {movieList.map((movie) => ( 
+                    <div key={movie.id} className="movie-card">
+                        <img src={movie.poster}/> 
+                        <div className='card-title-container'><p>{movie.title}</p></div>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

@@ -8,6 +8,26 @@ const options = {
   },
 };
 
+//searching for films
+export const fetchFilmSearch = async (query) => {
+  try{
+    const response = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`
+      , options
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch Films")
+    }
+
+    const data = await response.json()
+    // console.log('Is this hitting?');
+    return data
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    return { results: [] };
+  }
+};
+
 // Fetch popular films
 export const fetchPopularFilms = async () => {
   try {
