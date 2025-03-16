@@ -30,8 +30,8 @@ function Header() {
         <img type="submit" src={searchIcon}></img>
       </form>
       <button class="watchlist">Watchlist</button>
-        <Link to="/signin">
-          <button class="sign-in">Sign In</button>
+        <Link to="/signup">
+          <button class="sign-in">Sign Up</button>
         </Link>
     </header>
   );  

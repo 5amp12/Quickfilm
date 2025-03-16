@@ -1,15 +1,18 @@
 import { useState } from "react";
 import Header from '../components/Header/Header.js';
+import SignUp from '../components/SignUp/SignUp.js';
 import Styles from '../components/styles.css';
 
-function SignIn (){
+
+function SignUpView (){
     return(
         <div>
           <Header /> 
-            <main>    
+            <main>
+                <SignUp />    
             </main>
         </div>
     );
 }
 
-export default SignIn;
+export default SignUpView;
