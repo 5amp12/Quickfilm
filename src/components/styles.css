@@ -76,6 +76,6 @@ html, body {
     text-overflow: ellipsis;
   }
   
-  .display-msg{
+  .error-message{
     color: white;
   }
