@@ -16,3 +16,19 @@ export const signUpUser = async (username,  password) => {
         return { error: "Failed to register" };
     }
 };
+
+export const signInUser = async (username, password) => {
+    try {
+        const response = await fetch(`${API_URL}/signin`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error signing in user:", error);
+        return { error: "Failed to sign in" };
+    }
+}

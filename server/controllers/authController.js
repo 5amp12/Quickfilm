@@ -30,3 +30,29 @@ exports.signUp = async (req, res) => {            //req means the request from t
         
     }
 }
+
+exports.signIn = async (req, res) => {
+    const {username, password} = req.body;
+    try{
+        
+        const result = await pool.query('SELECT id, username, password_hash FROM public.user_accounts WHERE username = $1', 
+            [username]
+        );
+        const user = result.rows[0];
+        console.log(user);
+        console.log("Password from user:", `${password}`);
+        console.log("Password from DB:", `"${user.password}"`)
+        
+        if (!user){
+            return res.status(401).json({ error: "Invalid username or password"})
+        }
+        const passwordMatch = await bcrypt.compare(password, user.password_hash);
+        if (!passwordMatch){
+            return res.status(401).json({ error: "Invalid username or password"})
+        }
+        res.status(200).json({ message: 'Sign in successful', user})
+    } catch (err){
+        console.error("Error in signIn:", err);
+        res.status(500).json({ error: "Internal server error"})
+    }
+}
