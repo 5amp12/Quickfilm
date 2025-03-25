@@ -32,7 +32,8 @@ export const fetchFilmSearch = async (query) => {
 export const fetchPopularFilms = async () => {
   try {
     const response = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?language=en-US&sort_by=popularity.desc&vote_count.gte=1000&primary_release_date.gte=2023-01-01&page=1`
+        // `https://api.themoviedb.org/3/discover/movie?language=en-US&sort_by=popularity.desc&vote_count.gte=500&primary_release_date.gte=2024-06-01&page=1`
+        'https://api.themoviedb.org/3/trending/movie/week'
         , options
     );
     if (!response.ok) {

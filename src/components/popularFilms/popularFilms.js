@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { fetchPopularFilms } from "../../services/api";
 //should have css call here
 
@@ -6,6 +6,7 @@ function popularFilms(){
     const [error, setError] = useState(null); // State to track errors
     const [movieList, setMovieList] = useState(null);
     const [loading, setLoading] = useState(true);
+    const movieListRef = useRef(null);
 
     useEffect(() => {
         const checkPopularFilms = async () => {
@@ -15,7 +16,7 @@ function popularFilms(){
                 const list = []
                 console.log(data)
                 let i = 0
-                while (list.length < 10 && i < data.results.length){
+                while (list.length < 20 && i < data.results.length){
                     let movieTitle = (data.results[i].title);
                     let movieId = data.results[i].id;
                     let posterPath = data.results[i].poster_path;
@@ -48,9 +49,26 @@ function popularFilms(){
         return <div className="display-msg">No movies found!</div>;
     }
 
+
+    const scrollLeft = () => {
+        if (movieListRef.current) {
+          movieListRef.current.scrollBy({ left: -700, behavior: 'smooth' });
+        }
+    };
+
+    const scrollRight = () => {
+        if (movieListRef.current) {
+          movieListRef.current.scrollBy({ left: 700, behavior: 'smooth' });
+        }
+    };
+
     return(
         <div className="movie-list-container">
-            <div className="movie-list">
+            <button className="scroll-button left" onClick={() => scrollLeft()}>
+            ◀
+            </button>
+
+            <div className="movie-list" ref={movieListRef}>
                 {movieList.map((movie) => ( 
                     <div key={movie.id} className="movie-card">
                         <img src={movie.poster}/> 
@@ -58,6 +76,10 @@ function popularFilms(){
                     </div>
                 ))}
             </div>
+
+            <button className="scroll-button right" onClick={() => scrollRight()}>
+            ▶
+            </button>
         </div>
     )
 }
