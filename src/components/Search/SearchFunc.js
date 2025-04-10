@@ -17,16 +17,13 @@ function SearchFunc() {
       try{
         const query = new URLSearchParams(location.search);
         setSearch(query.get("query"));
-        //console.log("look here", query.get("query"));
         const dataFound = await fetchFilmSearch(query.get("query"));
         if (!dataFound || !dataFound.results){
-          console.log("hitting here");
-          setData(dataFound.results.length > 0 ? dataFound.results : []);
+          setData(dataFound.length > 0 ? dataFound : []);
         }
         else{
           setData(dataFound)
         }
-        // console.log('here is teh data', dataFound)
       }
       catch(error){
         setError(error.message);
@@ -34,44 +31,36 @@ function SearchFunc() {
       finally{
         setLoading(false)
       }
-
-     
-      
     };
     fetchSearchQuery();
   }, [location.search]);
 
   useEffect(() => {
-    console.log("proper tester", data);
-    if (!data || !data.results || data.results.length === 0) return;
+    if (!data || !data || data.length === 0) return;
     const list = [];
     let i = 0;
-    while (i < 10){
-      let movieTitle = (data.results[i].title);
-      let movieId = data.results[i].id;
-      let posterPath = data.results[i].poster_path;
+    console.log("making sure this works", data)
+    console.log("length", data.length-2)
+    while (i < data.length-1){
+      let movieTitle = (data[i].title);
+      let movieId = data[i].id;
+      let posterPath = data[i].poster_path;
       let posterImg = ('https://image.tmdb.org/t/p/original/'+ posterPath);
-      console.log(movieTitle);
-      console.log(movieId);
-      console.log(posterImg)
       list.push({ id: movieId, title: movieTitle, poster: posterImg });
       i++
+      console.log(i)
     }
     setMovieList(list);
 
   }, [data]);
 
   if (loading || !movieList){
-    console.log("hitting1")
-    console.log(movieList)
     return  <h3 className="display">Loading...</h3>
   }
   if (error){
-    console.log("hitting2")
     return <h3 className="display-msg">Error...</h3>
   }
   if (movieList.length === 0) {
-    console.log("hitting3");
     return <div className="display-msg">No movies found!</div>;
   }
 

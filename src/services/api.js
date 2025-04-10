@@ -12,7 +12,7 @@ const options = {
 export const fetchFilmSearch = async (query) => {
   try{
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?original_language=en&query=${encodeURIComponent(query)}`
+      `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(query)}`
       , options
     );
     if (!response.ok) {
@@ -20,10 +20,13 @@ export const fetchFilmSearch = async (query) => {
     }
 
     const data = await response.json()
-    const englishOnly = data.results.filter(movie => movie.original_language === 'en');
-    console.log(englishOnly);
-    // console.log('Is this hitting?');
-    return data
+   
+    const englishOnly = data.results
+      // .filter(movie => movie.original_language === 
+      .filter(movie => movie.popularity > 2);
+      // .filter()
+    console.log("english ", englishOnly);
+    return englishOnly
   } catch (error) {
     console.error("Error fetching movies:", error);
     return { results: [] };

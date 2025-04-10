@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header/Header.js';
+import Styles from '../components/styles.css';
 import SearchFunc from '../components/Search/SearchFunc.js';
 import { useLocation } from 'react-router-dom';
 
