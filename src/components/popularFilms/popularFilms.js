@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { fetchPopularFilms } from "../../services/api";
+import "./popularFilms.css";
 //should have css call here
 
 function popularFilms(){
@@ -63,23 +64,26 @@ function popularFilms(){
     };
 
     return(
-        <div className="movie-list-container">
-            <button className="scroll-button left" onClick={() => scrollLeft()}>
-            ◀
-            </button>
+        <div className="popular-film-container">
+            <p className="pop-films-header">Popular Films</p>
+            <div className="movie-list-container">
+                <button className="scroll-button left" onClick={() => scrollLeft()}>
+                ◀
+                </button>
 
-            <div className="movie-list" ref={movieListRef}>
-                {movieList.map((movie) => ( 
-                    <div key={movie.id} className="movie-card">
-                        <img src={movie.poster}/> 
-                        <div className='card-title-container'><p>{movie.title}</p></div>
-                    </div>
-                ))}
+                <div className="movie-list" ref={movieListRef}>
+                    {movieList.map((movie) => ( 
+                        <div key={movie.id} className="movie-card">
+                            <img src={movie.poster}/> 
+                            <div className='card-title-container'><p>{movie.title}</p></div>
+                        </div>
+                    ))}
+                </div>
+
+                <button className="scroll-button right" onClick={() => scrollRight()}>
+                ▶
+                </button>
             </div>
-
-            <button className="scroll-button right" onClick={() => scrollRight()}>
-            ▶
-            </button>
         </div>
     )
 }

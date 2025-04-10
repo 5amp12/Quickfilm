@@ -1,0 +1,68 @@
+.pop-films-header {
+    color: white;
+  }
+  .movie-list-search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .movie-list-search {
+    display: flex;
+    justify-content: center;
+    
+    flex-direction: row;
+    gap: 1rem;
+    padding: 10px 5px;
+    max-width: 1200px;
+    flex-wrap: wrap;
+  }
+  .movie-card-search {
+    background-color: rgb(99, 99, 99);
+    border-radius: 3px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* flex: 0 0 auto; */
+  }
+  .movie-list-search :hover{
+    background-color: grey;
+    outline: gray;
+    text-decoration: underline;
+    opacity: 0.8;
+    transform: scale(1.03);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    
+  }
+  .movie-card-search img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+  .card-title-container{
+    max-width: 100%;
+    min-width: 0;
+    background-color: #383838; /* Light background for the title */
+    /* padding: 10px; */
+    padding-left: 4px;
+    /* padding-right: 2px; */
+    font-size: 16px;
+    color: #333;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflowed text */
+    text-overflow: ellipsis; /* If the title is too long */
+    display: block;
+  }
+
+  .card-title-container p{
+    display: block;  
+    width: 100%;
+    white-space: nowrap;  
+    overflow: hidden;  
+    text-overflow: ellipsis;
+    color: white;
+  }

@@ -9,7 +9,6 @@ function Home() {
     <div>
      <Header /> 
       <main>
-        <p className="pop-films-header">Popular Films</p>
         <PopularFilms />
       </main>
     </div>

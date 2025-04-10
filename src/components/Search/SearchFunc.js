@@ -46,7 +46,7 @@ function SearchFunc() {
     if (!data || !data.results || data.results.length === 0) return;
     const list = [];
     let i = 0;
-    while (i < 5){
+    while (i < 10){
       let movieTitle = (data.results[i].title);
       let movieId = data.results[i].id;
       let posterPath = data.results[i].poster_path;
@@ -76,10 +76,10 @@ function SearchFunc() {
   }
 
   return (
-    <div className="movie-list-container">
-        <div className="movie-list">
+    <div className="movie-list-search-container">
+        <div className="movie-list-search">
             {movieList.map((movie) => ( 
-                <div key={movie.id} className="movie-card">
+                <div key={movie.id} className="movie-card-search">
                     <img src={movie.poster}/> 
                     <div className='card-title-container'><p>{movie.title}</p></div>
                 </div>
