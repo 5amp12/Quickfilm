@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { data, Link } from 'react-router-dom';
 import { signInUser } from "../../services/authService";
 import "./AuthForm.css";
 
@@ -17,10 +17,22 @@ function SignIn() {
             setMessage(result.error);
         } else {
             setMessage("Sign In Successful");
+            localStorage.setItem('token', result.token);
         }
+        const token = localStorage.getItem('token');
+        const isLoggedIn = !!token;
+        alert(isLoggedIn);
         
-        // setMessage(result.error);
-        // setMessage("Registration Successful");
+        //To grab the current user id signed into the session do: 
+        // import jwt_decode from 'jwt-decode';
+
+        // const token = localStorage.getItem('token');
+
+        // if (token) {
+        //     const decoded = jwt_decode(token);
+        //     const userId = decoded.userId;
+        //     console.log('User ID:', userId);
+
         
     };
 

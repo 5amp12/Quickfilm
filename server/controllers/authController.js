@@ -1,5 +1,6 @@
 const pool = require("../config/db");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
  //WHEN EDITING HERE MAKE SURE TO RELOAD NODE SERVER.JS COMMAND TO SEE EFFECTS
 
@@ -41,16 +42,21 @@ exports.signIn = async (req, res) => {
         const user = result.rows[0];
         console.log(user);
         console.log("Password from user:", `${password}`);
-        console.log("Password from DB:", `"${user.password}"`)
+        console.log("Password from DB:", `"${user.password_hash}"`)
         
         if (!user){
-            return res.status(401).json({ error: "Invalid username or password"})
+            return res.status(401).json({ error: "Invalid username or     password"})
         }
         const passwordMatch = await bcrypt.compare(password, user.password_hash);
         if (!passwordMatch){
             return res.status(401).json({ error: "Invalid username or password"})
         }
-        res.status(200).json({ message: 'Sign in successful', user})
+        
+        const token = jwt.sign({ userId: user.id }, 'your_secret_key', { expiresIn: '2h' });     //change the key name later
+        return res.status(200).json({ 
+            message: 'Sign in successful', user,
+            token
+        })
     } catch (err){
         console.error("Error in signIn:", err);
         res.status(500).json({ error: "Internal server error"})
