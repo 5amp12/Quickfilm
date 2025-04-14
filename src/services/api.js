@@ -53,6 +53,26 @@ export const fetchPopularFilms = async () => {
   }
 };
 
+// Fetch popular tv
+export const fetchPopularTV = async () => {
+  try {
+    const response = await fetch(
+        // `https://api.themoviedb.org/3/discover/movie?language=en-US&sort_by=popularity.desc&vote_count.gte=500&primary_release_date.gte=2024-06-01&page=1`
+        'https://api.themoviedb.org/3/trending/tv/week'
+        , options
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch Shows");
+    }
+
+    const data =  await response.json();
+    return data
+  } catch (error) {
+    console.error("Error fetching Shows:", error);
+    return { results: [] };
+  }
+};
+
 // Check movie runtime
 export const checkRuntime = async (id) => {
   try {

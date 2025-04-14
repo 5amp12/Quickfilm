@@ -1,11 +1,15 @@
-.pop-films-header {
+  .pop-films-header {
     color: white;
     text-align: left;
     padding-left: 40px;
+    font-weight: bolder;
+    text-decoration: underline;
+    text-decoration-color: purple;
+    
   }
-  .pop-films-header {
+  /* .pop-films-header {
     color: white;
-  }
+  } */
   .scroll-button{
     display: flex;
     flex-direction: column;
@@ -17,6 +21,7 @@
     cursor: pointer;
     top: 50%;
     color: wheat; 
+    padding: 5px 15px;
   }
   .movie-list-container {
     display: flex;
@@ -73,7 +78,7 @@
   .card-title-container{
     max-width: 100%;
     min-width: 0;
-    background-color: #383838; /* Light background for the title */
+    background-color: #282828; /* Light background for the title */
     /* padding: 10px; */
     padding-left: 4px;
     /* padding-right: 2px; */

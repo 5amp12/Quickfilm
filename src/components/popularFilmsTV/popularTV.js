@@ -1,34 +1,34 @@
 import { useEffect, useState, useRef } from "react";
-import { fetchPopularFilms } from "../../services/api";
-import "./popularFilms.css";
+import { fetchPopularTV } from "../../services/api";
+import "./popularFilmsTV.css";
 //should have css call here
 
-function popularFilms(){
+function popularTV(){
     const [error, setError] = useState(null); // State to track errors
-    const [movieList, setMovieList] = useState(null);
+    const [tvList, setTvList] = useState(null);
     const [loading, setLoading] = useState(true);
-    const movieListRef = useRef(null);
+    const tvListRef = useRef(null);
 
     useEffect(() => {
-        const checkPopularFilms = async () => {
+        const checkPopularTV = async () => {
             setLoading(true);
             try{
-                const data = await fetchPopularFilms();   //api call
+                const data = await fetchPopularTV();   //api call
                 const list = []
                 console.log(data)
                 let i = 0
-                while (list.length < 20 && i < data.results.length){
-                    let movieTitle = (data.results[i].title);
-                    let movieId = data.results[i].id;
+                while (list.length < 10 && i < data.results.length){
+                    let tvTitle = (data.results[i].name);
+                    let tvId = data.results[i].id;
                     let posterPath = data.results[i].poster_path;
                     let posterImg = ('https://image.tmdb.org/t/p/original/'+ posterPath);
-                    console.log(movieTitle);
-                    console.log(movieId);
-                    list.push({ id: movieId, title: movieTitle, poster: posterImg });
+                    console.log(tvTitle);
+                    console.log(tvId);
+                    list.push({ id: tvId, title: tvTitle, poster: posterImg });
 
                     i++;
                 }
-                setMovieList(list);
+                setTvList(list);
             }
             catch (error){
                 setError(error.message);
@@ -37,42 +37,42 @@ function popularFilms(){
                 setLoading(false);
             }
         };
-        checkPopularFilms();
+        checkPopularTV();
 
     }, []);
-    if (loading || !movieList) {
+    if (loading || !tvList) {
         return <div className="display-msg">Loading...</div>;
     }
     if (error){
         return <div className="display-msg">Error...</div>;
     }
-    if (movieList.length === 0) {
-        return <div className="display-msg">No movies found!</div>;
+    if (tvList.length === 0) {
+        return <div className="display-msg">No Shows found!</div>;
     }
 
 
     const scrollLeft = () => {
-        if (movieListRef.current) {
-          movieListRef.current.scrollBy({ left: -700, behavior: 'smooth' });
+        if (tvListRef.current) {
+          tvListRef.current.scrollBy({ left: -700, behavior: 'smooth' });
         }
     };
 
     const scrollRight = () => {
-        if (movieListRef.current) {
-          movieListRef.current.scrollBy({ left: 700, behavior: 'smooth' });
+        if (tvListRef.current) {
+          tvListRef.current.scrollBy({ left: 700, behavior: 'smooth' });
         }
     };
 
     return(
         <div className="popular-film-container">
-            <p className="pop-films-header">Popular Films</p>
+            <p className="pop-films-header">Top 10 Shows This week</p>
             <div className="movie-list-container">
                 <button className="scroll-button left" onClick={() => scrollLeft()}>
                 ◀
                 </button>
 
-                <div className="movie-list" ref={movieListRef}>
-                    {movieList.map((movie) => ( 
+                <div className="movie-list" ref={tvListRef}>
+                    {tvList.map((movie) => ( 
                         <div key={movie.id} className="movie-card">
                             <img src={movie.poster}/> 
                             <div className='card-title-container'><p>{movie.title}</p></div>
@@ -87,4 +87,4 @@ function popularFilms(){
         </div>
     )
 }
-export default popularFilms;
+export default popularTV;

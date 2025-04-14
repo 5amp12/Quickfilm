@@ -40,7 +40,7 @@ function SearchFunc() {
     const list = [];
     let i = 0;
     console.log("making sure this works", data)
-    console.log("length", data.length-2)
+    console.log("length", data.length-1)
     while (i < data.length-1){
       let movieTitle = (data[i].title);
       let movieId = data[i].id;
