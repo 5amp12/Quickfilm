@@ -30,12 +30,12 @@ main{
     background-color: darkgray;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
+/* 
 .auth-form input:hover {
     color: white;
-}
+} */
 .auth-form input:focus {
-    border-color: #007bff;
+    border-color: #740283;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
 

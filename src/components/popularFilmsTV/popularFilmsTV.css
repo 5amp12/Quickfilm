@@ -5,11 +5,11 @@
     font-weight: bolder;
     text-decoration: underline;
     text-decoration-color: purple;
-    
+    padding-left: 70px;
   }
-  /* .pop-films-header {
-    color: white;
-  } */
+  .popular-film-container{
+    padding: 1px 40px;
+  } 
   .scroll-button{
     display: flex;
     flex-direction: column;
@@ -99,8 +99,6 @@
     color: white;
   }
 
-.popular-film-container{
-  padding: 1px 40px;
-}
+
 
 
