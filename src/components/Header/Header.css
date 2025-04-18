@@ -64,3 +64,42 @@ header {
     width: auto;
     min-width: 90px;
   }
+  .user-Account-button{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(99, 0, 99);
+    text-align: center;
+    padding: 0;
+    line-height: 40px;
+    min-width: 40px;    
+  }
+  .dropdown{
+    position: relative;
+  }
+  .dropdown-menu {
+    position: absolute;
+    top: 50px; /* adjust based on your header height */
+    right: 0;
+    background-color: rgb(61, 61, 61);
+    border: 1px solid #000000;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 10px 5px;
+    min-width: 120px;
+    z-index: 1000;
+    flex-direction: column;
+  }
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    /* background-color: darkgrey; */
+    color: #d3d3d3;
+    /* border: 1px solid #000000; */
+  }
+  .dropdown-menu a:hover {
+    cursor: pointer;
+    background-color: grey;
+    border-radius: 3px;
+  }

@@ -21,10 +21,15 @@ function SignUp() {
                 setMessage(result.error);
             } else {
                 setMessage("Registration Successful");
+                localStorage.setItem('token', result.token);
                 setPassword("");
                 setUsername("");
                 setConfirmPassword("");
+                window.location.reload();   
             }
+            // const token = localStorage.getItem('token');
+            // const isLoggedIn = !!token;
+            // alert(isLoggedIn);
         }
         else{
             setMessage("Passwords do not match")

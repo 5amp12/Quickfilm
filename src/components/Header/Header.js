@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const [input, setInput] = useState("");
-  const [token, setToken] = useState("")
+  const [token, setToken] = useState("");
+  const [menuOpen, setMenuOpen] = useState("");
   const navigate = useNavigate();
    
   const searchSubmit = (event) => {
@@ -16,6 +17,16 @@ function Header() {
     navigate(`/search?query=${encodeURIComponent(input)}`);
     setInput("");
   };
+
+  const toggleDropdown = () => {
+    setMenuOpen(!menuOpen);
+  }
+
+  const signOut = () => {
+    console.log("sign Out hitting")
+    localStorage.removeItem('token');
+    window.location.reload()
+  }
   // setToken(localStorage.getItem('token'));  
   useEffect(() => {   //dealing with User change (logging in)
     const UserChange = () => {        
@@ -48,7 +59,17 @@ function Header() {
       </form>
       <button className="watchlist">Watchlist</button>
       { token ? (
-        <p>U</p>
+        <>
+          <div className='dropdown'>
+            <button onClick={toggleDropdown}className="user-Account-button">U</button>
+            {menuOpen && (
+              <div className='dropdown-menu'>
+                <a onClick={signOut}>Sign Out</a>
+                <a>Example</a>
+              </div>
+            )}
+          </div>
+        </>
       ) : (
         <Link to="/signup">
           <button className="sign-in">Sign Up</button>

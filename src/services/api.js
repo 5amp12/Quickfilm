@@ -23,7 +23,7 @@ export const fetchFilmSearch = async (query) => {
    
     const englishOnly = data.results
       // .filter(movie => movie.original_language === 
-      .filter(movie => movie.popularity > 2);
+      .filter(movie => movie.popularity > 0.5);
       // .filter()
     console.log("english ", englishOnly);
     return englishOnly

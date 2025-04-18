@@ -18,10 +18,13 @@ function SignIn() {
         } else {
             setMessage("Sign In Successful");
             localStorage.setItem('token', result.token);
+            setUsername("");
+            setPassword("");
+            window.location.reload();
         }
-        const token = localStorage.getItem('token');
-        const isLoggedIn = !!token;
-        alert(isLoggedIn);
+        // const token = localStorage.getItem('token');
+        // const isLoggedIn = !!token;
+        // alert(isLoggedIn);
         
         //To grab the current user id signed into the session do: 
         // import jwt_decode from 'jwt-decode';
