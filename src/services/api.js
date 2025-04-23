@@ -87,3 +87,22 @@ export const checkRuntime = async (id) => {
     return false;
   }
 };
+
+export const fetchFilmId = async (id) => {
+  try {
+    console.log("details hitting")
+    const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}`
+        , options
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch Shows");
+    }
+
+    const data =  await response.json();
+    return data
+  } catch (error) {
+    console.error("Error fetching Shows:", error);
+    return { results: [] };
+  }
+};

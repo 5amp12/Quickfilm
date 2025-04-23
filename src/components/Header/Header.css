@@ -53,7 +53,7 @@ header {
     border: none;
     font-size: medium;
   }
-  header button:hover{
+  .watchlist:hover{
     background-color: rgb(79, 79, 79);
   }
   .watchlist{
@@ -73,6 +73,9 @@ header {
     padding: 0;
     line-height: 40px;
     min-width: 40px;    
+  }
+  .user-Account-button:hover{
+    box-shadow: 0 0 0 4px rgba(128, 128, 128, 0.3);
   }
   .dropdown{
     position: relative;

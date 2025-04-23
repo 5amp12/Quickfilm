@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { Link } from 'react-router-dom';
 import { fetchPopularFilms } from "../../services/api";
 import "./popularFilmsTV.css";
 //should have css call here
@@ -73,10 +74,12 @@ function popularFilms(){
 
                 <div className="movie-list" ref={movieListRef}>
                     {movieList.map((movie) => ( 
-                        <div key={movie.id} className="movie-card">
-                            <img src={movie.poster}/> 
-                            <div className='card-title-container'><p>{movie.title}</p></div>
-                        </div>
+                        <Link key={movie.id} to={`/film/${movie.id}`}>
+                            <div key={movie.id} className="movie-card">
+                                <img src={movie.poster}/> 
+                                <div className='card-title-container'><p>{movie.title}</p></div>
+                            </div>
+                        </Link>
                     ))}
                 </div>
 
