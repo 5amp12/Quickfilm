@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Styles from './searchFunc.css';
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { fetchFilmSearch } from "../../services/api";
 
 
@@ -68,10 +69,12 @@ function SearchFunc() {
     <div className="movie-list-search-container">
         <div className="movie-list-search">
             {movieList.map((movie) => ( 
+              <Link key={movie.id} to={`/film/${movie.id}`}>
                 <div key={movie.id} className="movie-card-search">
                     <img src={movie.poster}/> 
                     <div className='card-title-container'><p>{movie.title}</p></div>
                 </div>
+              </Link>
             ))}
         </div>
     </div>

@@ -90,7 +90,6 @@ export const checkRuntime = async (id) => {
 
 export const fetchFilmId = async (id) => {
   try {
-    console.log("details hitting")
     const response = await fetch(
         `https://api.themoviedb.org/3/movie/${id}`
         , options

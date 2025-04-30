@@ -1,0 +1,73 @@
+.movieContainer{
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: center; */
+    flex-direction: column ;
+    max-width: 800px; 
+    margin: 0 auto;     /* this centers it horizontally */
+    padding: 16px;
+    /*GO FOR THIS FONT*/
+    font-family:    Playfair Display;         /*semi bold 700*/ 
+    font-weight: 700;
+}
+#backdrop {
+    width: 100%;             /* full width of the parent container */
+    aspect-ratio: 16 / 9;  
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 12px;      
+    overflow: hidden;
+    margin: 0 auto; 
+    mask-image: 
+    linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%),
+    linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 10%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: destination-in;
+}
+.main-movie-info{
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 20px;
+}
+#poster {
+    width: 200px;         
+    aspect-ratio: 2 / 3;  
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 4px;   
+    overflow: hidden;
+    margin: 0;
+    padding-right: 10px;
+}
+.movie-text-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.title-runtime-container {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    width: 100%;
+}
+#title {
+    margin: 0;
+    color: white;
+    display: flex;
+    font-size: x-large;
+}
+#runtime {
+    margin: 0;
+    color: white;
+    display: flex;
+    font-size: x-large;
+}
+#description {
+    padding-top: 20px;
+    margin: 0;
+    color: white;
+    font-size: large;
+    text-align: left;
+}
+
