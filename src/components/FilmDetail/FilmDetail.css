@@ -9,6 +9,7 @@
     /*GO FOR THIS FONT*/
     font-family:    Playfair Display;         /*semi bold 700*/ 
     font-weight: 700;
+    color: white;
 }
 #backdrop {
     width: 100%;             /* full width of the parent container */
@@ -53,13 +54,11 @@
 }
 #title {
     margin: 0;
-    color: white;
     display: flex;
     font-size: x-large;
 }
 #runtime {
     margin: 0;
-    color: white;
     display: flex;
     font-size: x-large;
 }

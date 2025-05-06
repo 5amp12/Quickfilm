@@ -11,7 +11,7 @@ function FilmDetail() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // console.log("hello")
+    
     useEffect(() => {
         const filmData = async () => {
             try{
@@ -22,11 +22,12 @@ function FilmDetail() {
                 const movie = {
                     title: data.title,
                     description: data.overview,
-                    rating: data.vote_average,
+                    rating: data.vote_average,  
                     // genre
                     // cast
                     tagline: data.tagline,
-                    runtime: data.runtime,
+                    runtime: data.runtime.toFixed(1),
+                    budget: data.budget,
                     // let backdrop_data = data.backdrop_path;
                     backdrop: 'https://image.tmdb.org/t/p/original/' + data.backdrop_path,
                     poster: 'https://image.tmdb.org/t/p/original/' + data.poster_path
@@ -61,7 +62,13 @@ function FilmDetail() {
                         <h3 id='title'>{movieData.title}</h3>
                         <h3 id='runtime'>{movieData.runtime} mins</h3>
                     </div>
-                    <p id='description'>{movieData.description}</p>
+                    <div>
+                        <p id='description'>{movieData.description}</p>
+                    </div>
+                    <div>
+                        <h3 id='rating'>{movieData.rating}</h3>
+                        <h3 id='budget'>${movieData.budget}</h3>
+                    </div>  
                 </div>
             </div>
             
