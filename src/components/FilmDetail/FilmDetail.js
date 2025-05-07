@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState, useRef } from "react";
 import { fetchFilmId } from "../../services/api";
+import starIcon from '../../assets/icons8-star-48.png';
 import 'typeface-playfair-display';             //font
 import "./FilmDetail.css";
 
@@ -26,8 +27,9 @@ function FilmDetail() {
                     // genre
                     // cast
                     tagline: data.tagline,
-                    runtime: data.runtime.toFixed(1),
+                    runtime: data.runtime.toFixed(0),
                     budget: data.budget,
+                    date: data.release_date,
                     // let backdrop_data = data.backdrop_path;
                     backdrop: 'https://image.tmdb.org/t/p/original/' + data.backdrop_path,
                     poster: 'https://image.tmdb.org/t/p/original/' + data.poster_path
@@ -55,24 +57,34 @@ function FilmDetail() {
     return (
         <div className='movieContainer'>
             <img src={movieData.backdrop} alt={movieData.title + " backdrop"} id='backdrop'/>
-            <div className='main-movie-info'>
-                <img src={movieData.poster} alt={movieData.title + " poster"} id='poster'/>
-                <div className='movie-text-container'>
-                    <div className='title-runtime-container'> 
-                        <h3 id='title'>{movieData.title}</h3>
-                        <h3 id='runtime'>{movieData.runtime} mins</h3>
-                    </div>
+            <div className='movie-contents'>
+                <div className='info-container'>
                     <div>
+                        <h1 id='title-date'>{movieData.title} - {movieData.date}</h1>
+                    </div>
+                    <div className='desciption-container'>
                         <p id='description'>{movieData.description}</p>
                     </div>
-                    <div>
-                        <h3 id='rating'>{movieData.rating}</h3>
-                        <h3 id='budget'>${movieData.budget}</h3>
-                    </div>  
+                </div>
+                <div className='poster-extra-content'>
+                    <div className='rating-runtime-container'>
+                        <div className='star-rating'>
+                            <img src={starIcon} alt='star' id='star-icon'></img>
+                            <h3 id='rating'>{movieData.rating}</h3>
+                        </div>
+                        <h3 id='runtime'>{movieData.runtime} mins</h3>
+                    </div>
+                    <div className='poster-quiz-container'>
+                        <div>
+                            <img src={movieData.poster} alt={movieData.title + " poster"} id='poster'/>
+                        </div>
+                        <div className='budget-quiz-container'>
+                            <h3 id='budget-quiz'>${movieData.budget}</h3>
+                        </div>  
+                    </div>
                 </div>
             </div>
-            
-        </div>
+        </div>    
     );
 }
 export default FilmDetail;

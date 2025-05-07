@@ -2,7 +2,7 @@
     display: flex;
     /* align-items: center; */
     /* justify-content: center; */
-    flex-direction: column ;
+    flex-direction: column;
     max-width: 800px; 
     margin: 0 auto;     /* this centers it horizontally */
     padding: 16px;
@@ -26,10 +26,21 @@
     mask-composite: intersect;
     -webkit-mask-composite: destination-in;
 }
-.main-movie-info{
+.movie-contents{
     display: flex;
+    flex-direction: row;
+}
+.info-container{
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     padding-top: 20px;
+    max-width: 450px;
+    padding-right: 5px;
+}
+.desciption-container{
+    display: flex;
+    flex-direction: column;
 }
 #poster {
     width: 200px;         
@@ -39,20 +50,50 @@
     border-radius: 4px;   
     overflow: hidden;
     margin: 0;
-    padding-right: 10px;
+    margin-right: 5px;
+    /* padding-right: px; */
 }
-.movie-text-container {
+.poster-extra-content{
     display: flex;
     flex-direction: column;
-    flex: 1;
 }
-.title-runtime-container {
+.rating-runtime-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.star-rating{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#star-icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+}
+.poster-quiz-container{
+    display: flex;
+    flex-direction: row;
+}
+.budget-quiz-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.title-runtime-container {    /*dont't think this is used*/
     display: flex;
     justify-content: space-between;
     /* align-items: center; */
-    width: 100%;
+    width: 100%;    
 }
-#title {
+/* #title {
     margin: 0;
     display: flex;
     font-size: x-large;
@@ -68,5 +109,5 @@
     color: white;
     font-size: large;
     text-align: left;
-}
+} */
 
