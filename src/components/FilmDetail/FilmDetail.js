@@ -19,17 +19,18 @@ function FilmDetail() {
                 const data = await fetchFilmId(id);
                 console.log(data);
                 console.log('https://image.tmdb.org/t/p/original/' + data.backdrop_path)
-
+                const shortDate = data.release_date.slice(0, 4);   //getting the year made
                 const movie = {
                     title: data.title,
                     description: data.overview,
-                    rating: data.vote_average,  
+                    rating: data.vote_average.toFixed(1),  
                     // genre
                     // cast
                     tagline: data.tagline,
-                    runtime: data.runtime.toFixed(0),
+                    runtime: data.runtime,
                     budget: data.budget,
-                    date: data.release_date,
+                    date: shortDate,
+                    
                     // let backdrop_data = data.backdrop_path;
                     backdrop: 'https://image.tmdb.org/t/p/original/' + data.backdrop_path,
                     poster: 'https://image.tmdb.org/t/p/original/' + data.poster_path
@@ -59,12 +60,21 @@ function FilmDetail() {
             <img src={movieData.backdrop} alt={movieData.title + " backdrop"} id='backdrop'/>
             <div className='movie-contents'>
                 <div className='info-container'>
-                    <div>
-                        <h1 id='title-date'>{movieData.title} - {movieData.date}</h1>
+                    <h1 id='title-date'>{movieData.title} - {movieData.date}</h1>
+                    <h3 id='tagline'>{movieData.tagline}</h3>
+                    <p id='description'>{movieData.description}</p>
+                    <div className='list-container'>
+                        <div className='genre-list'>
+                            <span className='genre-box'>Genre1</span>   
+                            <span className='genre-box'>Genre2</span>
+                            <span className='genre-box'>Genre3</span>
+                        </div>
+                        <div className='add-film-list'>
+                            <button>Add to WatchList</button>
+                            <button>Rate this Film</button> 
+                        </div>
                     </div>
-                    <div className='desciption-container'>
-                        <p id='description'>{movieData.description}</p>
-                    </div>
+
                 </div>
                 <div className='poster-extra-content'>
                     <div className='rating-runtime-container'>
@@ -79,8 +89,11 @@ function FilmDetail() {
                             <img src={movieData.poster} alt={movieData.title + " poster"} id='poster'/>
                         </div>
                         <div className='budget-quiz-container'>
-                            <h3 id='budget-quiz'>${movieData.budget}</h3>
-                        </div>  
+                            <span className='budget-quiz'>${movieData.budget}</span>
+                            <span className='budget-quiz'>${movieData.budget + 10000}</span>
+                            <span className='budget-quiz'>${movieData.budget - 10000}</span>
+                        </div> 
+                        
                     </div>
                 </div>
             </div>

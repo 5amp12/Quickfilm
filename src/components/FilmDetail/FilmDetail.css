@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@700&family=Roboto&display=swap');
+
 .movieContainer{
     display: flex;
     /* align-items: center; */
@@ -6,10 +8,14 @@
     max-width: 800px; 
     margin: 0 auto;     /* this centers it horizontally */
     padding: 16px;
+    padding-top: 20px;
     /*GO FOR THIS FONT*/
-    font-family:    Playfair Display;         /*semi bold 700*/ 
-    font-weight: 700;
+    font-family:    'Poppins', sans-serif;         /*semi bold 700*/ 
+    font-weight: 100;
+    /* font-weight: 700; */
+    /* font-size: 22px; */
     color: white;
+    width: 100%;
 }
 #backdrop {
     width: 100%;             /* full width of the parent container */
@@ -29,18 +35,75 @@
 .movie-contents{
     display: flex;
     flex-direction: row;
+    width: 100%;
 }
 .info-container{
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
-    padding-top: 20px;
+    /* padding-top: 20px; */
     max-width: 450px;
     padding-right: 5px;
+    /* flex: 1; */
+
 }
-.desciption-container{
+#description{
+    text-align: left;
+}
+.list-container{
+    margin-top: auto; 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    /* max-width: 100%; */
+    /* flex-wrap: wrap;
+    /* gap: 12px;   */
+}
+.genre-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px; 
+    height: 10px;
+    /* margin-top: auto;  */
+    /* margin-top: 12px; */
+    /* flex: 1; */
+    width: 60%;
+    padding-right: 3px;
+}
+.genre-box{
+    padding: 6px;
+    background-color: #333; /* dark background */
+    color: white;
+    border-radius: 2px;
+    white-space: nowrap;
+    user-select: none;
+    flex: 1;
+    /* display: flex;
+    justify-content: flex-end; */
+}
+.add-film-list{
+    display: flex;
+    flex-direction: column;  
+    justify-content: flex-end;
+    gap: 2px;
+    margin-top: auto;
+    justify-content: flex-end;
+    flex: 1;
+    /* width: 100%;  */
+}
+.add-film-list button{
+    background-color: rgb(86, 86, 86);
+    /* color: white; */
+    padding: 10px 20px;
+    border: red;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    /* transition: background-color 0.3s ease, transform 0.2s ease; */
+    /* white-space: nowrap; */
 }
 #poster {
     width: 200px;         
@@ -56,6 +119,7 @@
 .poster-extra-content{
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 .rating-runtime-container{
     display: flex;
@@ -78,11 +142,25 @@
 .poster-quiz-container{
     display: flex;
     flex-direction: row;
+    flex: 1;
 }
+
 .budget-quiz-container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 3px;   
+}
+.budget-quiz{
+    background-color: rgb(86, 86, 86);
+    /* color: white; */
+    padding: 10px 20px;
+    border: red;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
 }
 
 
