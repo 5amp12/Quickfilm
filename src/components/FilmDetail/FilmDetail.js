@@ -11,6 +11,7 @@ function FilmDetail() {
     const [movieData, setMovieData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [budget, setBudget] = useState(true);
 
     
     useEffect(() => {
@@ -20,17 +21,49 @@ function FilmDetail() {
                 console.log(data);
                 console.log('https://image.tmdb.org/t/p/original/' + data.backdrop_path)
                 const shortDate = data.release_date.slice(0, 4);   //getting the year made
+                let budgetOption = 0;
+                let budgetOption2 = 0; 
+                setBudget(data.budget.toLocaleString())
+
+                if (data.budget > 10000000 && data.budget < 20000000){
+                    budgetOption = data.budget + 5000000
+                    budgetOption2 = data.budget - 5000000
+                }else if (data.budget > 100000000){
+                    budgetOption = data.budget + 10000000
+                    budgetOption2 = data.budget - 10000000
+                }else if(data.budget < 100000000){
+                    budgetOption = data.budget + 1000000
+                    budgetOption2 = data.budget - 1000000
+                }else if(data.budget == 0){          //budget will occasionally be 0, make a clause for this
+                    
+                }
+
+
+                // console.log(i);
+                let shuffledList = [data.budget.toLocaleString(), budgetOption.toLocaleString(), budgetOption2.toLocaleString()];
+                for (let i = 0; i < shuffledList.length - 1; i++){
+                    const j = Math.floor(Math.random() * 3)          //random new position
+                    let storing = shuffledList[i];
+                    shuffledList[i] = shuffledList[j];
+                    shuffledList[j] = storing;
+                    console.log(i);
+                }
+                console.log(shuffledList)
+
                 const movie = {
                     title: data.title,
                     description: data.overview,
                     rating: data.vote_average.toFixed(1),  
-                    // genre
+                    genres: data.genres.slice(0, 3),
                     // cast
                     tagline: data.tagline,
                     runtime: data.runtime,
-                    budget: data.budget,
+                    budgets: shuffledList,   
+                    budgetOpt2: budgetOption.toLocaleString(),
+                    budgetOpt3: budgetOption2.toLocaleString(),
                     date: shortDate,
                     
+        
                     // let backdrop_data = data.backdrop_path;
                     backdrop: 'https://image.tmdb.org/t/p/original/' + data.backdrop_path,
                     poster: 'https://image.tmdb.org/t/p/original/' + data.poster_path
@@ -49,6 +82,13 @@ function FilmDetail() {
         };
         filmData();
     }, []);
+
+    const correctBudget = (budgetGuess) => {
+        console.log(budgetGuess);
+        if (budgetGuess == budget){
+            console.log("YAY");
+        }
+    } 
     if (loading || !movieData) {
         return <div className="display-msg">Loading...</div>;
     }
@@ -65,9 +105,10 @@ function FilmDetail() {
                     <p id='description'>{movieData.description}</p>
                     <div className='list-container'>
                         <div className='genre-list'>
-                            <span className='genre-box'>Genre1</span>   
-                            <span className='genre-box'>Genre2</span>
-                            <span className='genre-box'>Genre3</span>
+                            {movieData.genres.map((genre) => (
+                                <span className='genre-box'>{genre.name}</span>
+                            ))}
+                            
                         </div>
                         <div className='add-film-list'>
                             <button>Add to WatchList</button>
@@ -89,9 +130,13 @@ function FilmDetail() {
                             <img src={movieData.poster} alt={movieData.title + " poster"} id='poster'/>
                         </div>
                         <div className='budget-quiz-container'>
-                            <span className='budget-quiz'>${movieData.budget}</span>
-                            <span className='budget-quiz'>${movieData.budget + 10000}</span>
-                            <span className='budget-quiz'>${movieData.budget - 10000}</span>
+                            {movieData.budgets.map((budget) => (
+                                <span key={budget} onClick={() => correctBudget(budget)} className='budget-quiz'>${budget}</span>
+                            ))}
+
+                            {/* <span className='budget-quiz'>${movieData.budget}</span>
+                            <span className='budget-quiz'>${movieData.budgetOpt2}</span>
+                            <span className='budget-quiz'>${movieData.budgetOpt3}</span> */}
                         </div> 
                         
                     </div>
