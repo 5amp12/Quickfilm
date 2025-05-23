@@ -12,7 +12,9 @@ function FilmDetail() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [budget, setBudget] = useState(true);
-
+    const [isCorrectBudget, setIsCorrect] = useState(null);
+    const [selectedBudget, setSelectedBudget] = useState(null);
+    const [isBudgetDisabled, setIsBudgetDisabled] = useState(false);
     
     useEffect(() => {
         const filmData = async () => {
@@ -80,15 +82,17 @@ function FilmDetail() {
             
     
         };
-        filmData();
     }, []);
 
     const correctBudget = (budgetGuess) => {
         console.log(budgetGuess);
+        setSelectedBudget(budgetGuess);
         if (budgetGuess == budget){
-            console.log("YAY");
+            setIsCorrect(true)
+            setIsBudgetDisabled(true)
         }
     } 
+
     if (loading || !movieData) {
         return <div className="display-msg">Loading...</div>;
     }
@@ -106,7 +110,7 @@ function FilmDetail() {
                     <div className='list-container'>
                         <div className='genre-list'>
                             {movieData.genres.map((genre) => (
-                                <span className='genre-box'>{genre.name}</span>
+                                <span key={genre.key} className='genre-box'>{genre.name}</span>
                             ))}
                             
                         </div>
@@ -130,13 +134,25 @@ function FilmDetail() {
                             <img src={movieData.poster} alt={movieData.title + " poster"} id='poster'/>
                         </div>
                         <div className='budget-quiz-container'>
-                            {movieData.budgets.map((budget) => (
-                                <span key={budget} onClick={() => correctBudget(budget)} className='budget-quiz'>${budget}</span>
+                            <p>Guess the Budget!</p>
+                            {movieData.budgets.map((budget, index) => (
+                                <span 
+                                    key={index} 
+                                    onClick={() => correctBudget(budget)} 
+                                    style={{
+                                        backgroundColor:
+                                            selectedBudget === budget
+                                                ? isCorrectBudget
+                                                    ? 'green'
+                                                    : 'red'
+                                                : 'grey',
+                                        cursor: isBudgetDisabled ? 'default' : 'pointer',
+                                        pointerEvents: isBudgetDisabled ? 'none' : 'auto',
+                                        opacity: isBudgetDisabled ? 0.6 : 1,
+                                    }}
+                                    className='budget-quiz'>${budget}
+                                </span>
                             ))}
-
-                            {/* <span className='budget-quiz'>${movieData.budget}</span>
-                            <span className='budget-quiz'>${movieData.budgetOpt2}</span>
-                            <span className='budget-quiz'>${movieData.budgetOpt3}</span> */}
                         </div> 
                         
                     </div>
