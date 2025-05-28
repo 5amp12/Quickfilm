@@ -13,6 +13,11 @@ function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault();  //prevents page from reloading when the form is being submitted
 
+        if (password.length < 8 || confirmPassword.length < 8){
+            setMessage("Password is too short")
+            // return;
+        } 
+
         if (confirmPassword == password){
 
             const result = await signUpUser(username, password);
@@ -49,20 +54,23 @@ function SignUp() {
                 </input>
                 <input 
                     placeholder="password..." 
+                    type="password"
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
                     required>
                 </input>
                 <input
                     placeholder="confirm password..." 
+                    type="password"
                     value={confirmPassword} 
                     onChange={(e) => setConfirmPassword(e.target.value)} 
                     required>
                 </input>
+                {message && <p className="error-message">{message}</p>}
                 <button type="submit">Sign Up</button>
-                <p>Have an account? <Link to="../signin">Sign in</Link></p>
+                <p id="signin-link">Have an account? <Link to="../signin">Sign in</Link></p>
             </form>
-            {message && <p className="error-message">{message}</p>}
+            
         </div>
     )
 }
