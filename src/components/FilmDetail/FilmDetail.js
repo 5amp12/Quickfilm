@@ -115,7 +115,8 @@
                 <img src={movieData.backdrop} alt={movieData.title + " backdrop"} id='backdrop'/>
                 <div className='movie-contents'>
                     <div className='info-container'>
-                        <h1 id='title-date'>{movieData.title} - {movieData.date}</h1>
+                        <h1 id='movie-title'>{movieData.title}</h1>
+                        <h2 id='movieDate'>{movieData.date}</h2>
                         <h3 id='tagline'>{movieData.tagline}</h3>
                         <p id='description'>{movieData.description}</p>
                         <div className='list-container'>
