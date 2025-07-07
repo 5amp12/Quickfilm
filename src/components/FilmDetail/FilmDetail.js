@@ -123,6 +123,7 @@
                 alert(result.error)
             } else{
                 alert("Movie added to watchlist")
+                window.location.reload(); 
             }
             // setMessage
             // alert
