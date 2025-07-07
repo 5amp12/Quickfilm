@@ -27,6 +27,10 @@ function Header() {
     localStorage.removeItem('token');
     window.location.reload()
   }
+
+  const info = () => {
+    console.log()
+  }
   // setToken(localStorage.getItem('token'));  
   useEffect(() => {   //dealing with User change (logging in)
     const UserChange = () => {        
@@ -46,35 +50,38 @@ function Header() {
 
   return (
     <header>
-      <Link to="/" class="home-link">
-        <h2>QuickFilm</h2>
-      </Link>
-      <form onSubmit={searchSubmit} className="search-container">
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder='Search...'>
-        </input>
-        <img type="submit" src={searchIcon}></img>
-      </form>
-      <button className="watchlist">Watchlist</button>
-      { token ? (
-        <>
-          <div className='dropdown'>
-            <button onClick={toggleDropdown}className="user-Account-button">U</button>
-            {menuOpen && (
-              <div className='dropdown-menu'>
-                <a onClick={signOut}>Sign Out</a>
-                <a>Example</a>
-              </div>
-            )}
-          </div>
-        </>
-      ) : (
-        <Link to="/signup">
-          <button className="sign-in">Sign Up</button>
+      <div className='header-content-container'>
+        <Link to="/" class="home-link">
+          <h2>QuickFilm</h2>
         </Link>
-      )}
+        <form onSubmit={searchSubmit} className="search-container">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder='Search...'>
+          </input>
+          <img type="submit" src={searchIcon}></img>
+        </form>
+        <button className="watchlist">Watchlist</button>
+        { token ? (
+          <>
+            <div className='dropdown'>
+              <button onClick={toggleDropdown}className="user-Account-button">U</button>
+              {menuOpen && (
+                <div className='dropdown-menu'>
+                  <a onClick={info}>Info</a>
+                  <a onClick={signOut}>Sign Out</a>
+                  <a>Example</a>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <Link to="/signup">
+            <button className="sign-in">Sign Up</button>
+          </Link>
+        )}
+      </div>
     </header>
   );  
 }

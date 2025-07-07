@@ -1,11 +1,18 @@
 header {
     display: flex;
-    align-items: center; 
-    justify-content: space-between;
+    justify-content: center;
     background: rgb(24, 24, 24);
     padding-top: 5px;
     padding-bottom: 5px;
     color: white;
+
+  }
+  .header-content-container {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
   }
   header h2 {
     margin-left: 15px;
