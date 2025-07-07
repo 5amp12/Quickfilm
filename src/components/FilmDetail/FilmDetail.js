@@ -1,6 +1,7 @@
     import { useParams } from 'react-router-dom';
     import { useEffect, useState, useRef } from "react";
     import { fetchFilmId } from "../../services/api";
+    import { watchlist, checkWatchList } from "../../services/authService";
     import starIcon from '../../assets/icons8-star-48.png';
     import 'typeface-playfair-display';             //font
     import "./FilmDetail.css";
@@ -16,6 +17,7 @@
         const [selectedBudget, setSelectedBudget] = useState(null);
         const [isBudgetDisabled, setIsBudgetDisabled] = useState(false);
         const [noBudget, setNoBudget] = useState(false);
+        const [addedMovie, setAddedMovie] = useState(false);
         
         useEffect(() => {
             const filmData = async () => {
@@ -61,6 +63,7 @@
                     
 
                     const movie = {
+                        id: data.id,
                         title: data.title,
                         description: data.overview,
                         rating: data.vote_average.toFixed(1),  
@@ -92,6 +95,38 @@
             };
             filmData();
         }, []);
+
+        useEffect(() => {
+            console.log("movieData:", movieData);
+            if (movieData){
+                const checkWatchlist = async () => {
+                    try {
+                        const result = await checkWatchList();
+                        if (result.watchlist.includes(movieData.id)) {
+                            setAddedMovie(true);
+                        }
+                    } catch (err) {
+                        console.error("Failed to fetch watchlist:", err);
+                    }
+                };
+                checkWatchlist();
+            }
+
+            
+        }, [movieData]);
+
+        const settingWatchlist = async(e) => {
+            console.log("hello");
+            console.log(movieData.id)
+            const result = await watchlist(movieData.id);
+            if (result.error){
+                alert(result.error)
+            } else{
+                alert("Movie added to watchlist")
+            }
+            // setMessage
+            // alert
+        }
 
         const correctBudget = (budgetGuess) => {
             console.log(budgetGuess);
@@ -127,7 +162,9 @@
                                 
                             </div>
                             <div className='add-film-list'>
-                                <button>Add to WatchList</button>
+                                <button onClick={settingWatchlist} style={{backgroundColor: addedMovie ? 'grey' : 'rgb(123, 64, 163)',}} >
+                                    {addedMovie ? 'Added to Watchlist' : 'Add to Watchlist'}
+                                </button>
                                 <button>Rate this Film</button> 
                             </div>
                         </div>

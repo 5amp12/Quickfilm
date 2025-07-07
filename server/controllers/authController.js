@@ -2,6 +2,8 @@ const pool = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
+
+
  //WHEN EDITING HERE MAKE SURE TO RELOAD NODE SERVER.JS COMMAND TO SEE EFFECTS
 
 exports.signUp = async (req, res) => {            //req means the request from the user  and res is used for the response to the user
@@ -17,7 +19,9 @@ exports.signUp = async (req, res) => {            //req means the request from t
             [username, hashedPassword]
         );
 
-        res.status(201).json({ message: "User registered successfully", user: newUser.rows[0] });
+        const user = newUser.rows[0]
+        const token = jwt.sign({ userId: user.id }, 'your_secret_key', { expiresIn: '2h' });
+        res.status(201).json({ message: "User registered successfully", user, token });
     }catch (error) {        
         console.error("error :", error);
         // console.error("Error Message :", error.message);
@@ -62,3 +66,34 @@ exports.signIn = async (req, res) => {
         res.status(500).json({ error: "Internal server error"})
     }
 }
+
+exports.watchlist = async (req, res) => {
+    const userId = req.userId;
+    const { movieId } = req.body; 
+
+    try {
+        await pool.query(
+            "INSERT INTO public.user_watchlist (user_id, movie_id) VALUES ($1, $2)",
+            [userId, movieId]
+        );
+        res.json({ message: "Movie added to watchlist" });
+    } catch (error) {
+        console.error("Error adding to watchlist:", error);
+        res.status(500).json({ error: "Failed to add to watchlist" });
+    }
+}
+
+exports.checkWatchList = async (req, res) => {
+    const userId = req.userId;
+    try {
+        const result = await pool.query(
+        "SELECT movie_id FROM public.user_watchlist WHERE user_id = $1",
+        [userId]
+        );
+        res.json({ watchlist: result.rows.map(row => row.movie_id) });
+    } catch (error) {
+        console.error("Error fetching watchlist:", error);
+        res.status(500).json({ error: "Failed to fetch watchlist" });
+    }
+}
+

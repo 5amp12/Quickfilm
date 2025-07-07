@@ -28,6 +28,10 @@ function Header() {
     window.location.reload()
   }
 
+  const watchlist = () => {
+    navigate('/watchlist');
+  }
+
   const info = () => {
     console.log()
   }
@@ -62,7 +66,7 @@ function Header() {
           </input>
           <img type="submit" src={searchIcon}></img>
         </form>
-        <button className="watchlist">Watchlist</button>
+        <button className="watchlist" onClick={watchlist}>Watchlist</button>
         { token ? (
           <>
             <div className='dropdown'>
