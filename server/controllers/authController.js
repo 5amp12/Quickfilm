@@ -83,6 +83,22 @@ exports.watchlist = async (req, res) => {
     }
 }
 
+exports.remove_watchlist = async (req, res) => {
+    const userId = req.userId;
+    const { movieId } = req.body; 
+
+    try {
+        await pool.query(
+            "DELETE FROM public.user_watchlist WHERE user_id = $1 AND movie_id = $2",
+            [userId, movieId]
+        );
+        res.json({ message: "Movie removed from watchlist" });
+    } catch (error) {
+        console.error("Error removing from watchlist:", error);
+        res.status(500).json({ error: "Failed to remove from watchlist" });
+    }
+}
+
 exports.checkWatchList = async (req, res) => {
     const userId = req.userId;
     try {
@@ -96,4 +112,6 @@ exports.checkWatchList = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch watchlist" });
     }
 }
+
+// exports.grabWatchList = 
 

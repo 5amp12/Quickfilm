@@ -57,6 +57,26 @@ export const watchlist = async (movieId) => {
     }
 }
 
+export const remove_watchlist = async (movieId) => {
+    const token = localStorage.getItem('token');
+    try{
+        const response = await fetch(`${API_URL}/remove_watchlist`, {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({ movieId }),
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error removing from watchlist:", error);
+        return { error: "Failed to remove from watchlist" };
+    }
+}
+
 export const checkWatchList = async () => {
     const token = localStorage.getItem('token');
     try {
@@ -72,3 +92,19 @@ export const checkWatchList = async () => {
         return { error: "Failed to fetch watchlist" };
     }
 }
+
+// export const grabWatchList = async () => {
+//     const token = localStorage.getItem('token');
+//     try{
+//         const response = await fetch(`${API_URL}/grabWatchList`, {
+//             method: "GET",
+//             headers: {
+//                 "Authorization": `Bearer ${token}`,
+//             },
+//         });
+//         return await response.json();
+//     }catch (error){
+//         console.error("Error grabbing the watchlist:", error);  
+//         return { error: "Failed to grab watchlist" };
+//     }
+// }

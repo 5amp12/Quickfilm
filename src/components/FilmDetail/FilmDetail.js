@@ -1,8 +1,9 @@
     import { useParams } from 'react-router-dom';
     import { useEffect, useState, useRef } from "react";
     import { fetchFilmId } from "../../services/api";
-    import { watchlist, checkWatchList } from "../../services/authService";
+    import { watchlist, checkWatchList, remove_watchlist } from "../../services/authService";
     import starIcon from '../../assets/icons8-star-48.png';
+    import LoadingScreen from "../LoadingScreen"
     import 'typeface-playfair-display';             //font
     import "./FilmDetail.css";
 
@@ -116,14 +117,19 @@
         }, [movieData]);
 
         const settingWatchlist = async(e) => {
-            console.log("hello");
             console.log(movieData.id)
-            const result = await watchlist(movieData.id);
-            if (result.error){
-                alert(result.error)
-            } else{
-                alert("Movie added to watchlist")
-                window.location.reload(); 
+            if (addedMovie === true){
+               const result = await remove_watchlist(movieData.id);
+              setAddedMovie(false);
+            }
+            else{
+                const result = await watchlist(movieData.id);
+                if (result.error){
+                    alert(result.error)
+                } else{
+                    alert("Movie added to watchlist")
+                    setAddedMovie(true);
+                }
             }
             // setMessage
             // alert
@@ -140,7 +146,8 @@
 
         if (loading || !movieData) {
             console.log(movieData);
-            return <div className="display-msg">Loading...</div>;
+            return <LoadingScreen />
+            // return <div className="display-msg">Loading...</div>;
             
         }
         if (error){
