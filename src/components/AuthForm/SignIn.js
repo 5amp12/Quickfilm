@@ -58,7 +58,7 @@ function SignIn() {
                     required>
                 </input>
                 <button type="submit">Sign In</button>
-                <p>Don't Have an account? <Link to="../signup">Sign up</Link> </p>
+                <p id="signin-link">Don't Have an account? <Link to="../signup">Sign up</Link> </p>
             </form>
             {message && <p className="error-message">{message}</p>}
         </div>
