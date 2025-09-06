@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from 'react-router-dom';
 import { checkWatchList } from "../../services/authService";
 import { fetchFilmId } from "../../services/api"
+import LoadingScreen from "../LoadingScreen/LoadingScreen"
 import "./WatchList.css";
 
 function WatchList() {
@@ -42,7 +43,7 @@ function WatchList() {
     }, [])
 
     if (loading || !movieList){
-        return  <h3 className="display">Loading...</h3>
+        return <LoadingScreen />
     }
     if (error){
         return <h3 className="display-msg">Error...</h3>

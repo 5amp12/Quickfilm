@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Styles from './searchFunc.css';
+import LoadingScreen from "../LoadingScreen/LoadingScreen"
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { fetchFilmSearch } from "../../services/api";
@@ -56,7 +57,7 @@ function SearchFunc() {
   }, [data]);
 
   if (loading || !movieList){
-    return  <h3 className="display">Loading...</h3>
+    return <LoadingScreen />
   }
   if (error){
     return <h3 className="display-msg">Error...</h3>

@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { fetchPopularTV } from "../../services/api";
+import LoadingScreen from "../LoadingScreen/LoadingScreen"
 import "./popularFilmsTV.css";
 //should have css call here
 
@@ -41,7 +42,8 @@ function popularTV(){
 
     }, []);
     if (loading || !tvList) {
-        return <div className="display-msg">Loading...</div>;
+        return <LoadingScreen />
+        // return <div className="display-msg">Loading...</div>;
     }
     if (error){
         return <div className="display-msg">Error...</div>;

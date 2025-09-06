@@ -3,7 +3,7 @@
     import { fetchFilmId } from "../../services/api";
     import { watchlist, checkWatchList, remove_watchlist } from "../../services/authService";
     import starIcon from '../../assets/icons8-star-48.png';
-    import LoadingScreen from "../LoadingScreen"
+    import LoadingScreen from "../LoadingScreen/LoadingScreen"
     import 'typeface-playfair-display';             //font
     import "./FilmDetail.css";
 

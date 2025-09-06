@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from 'react-router-dom';
 import { fetchPopularFilms } from "../../services/api";
+import LoadingScreen from "../LoadingScreen/LoadingScreen"
 import "./popularFilmsTV.css";
 //should have css call here
 
@@ -42,7 +43,9 @@ function popularFilms(){
 
     }, []);
     if (loading || !movieList) {
-        return <div className="display-msg">Loading...</div>;
+        console.log("loading..")
+        return <LoadingScreen />
+        // return <div className="display-msg">Loading...</div>;
     }
     if (error){
         return <div className="display-msg">Error...</div>;
