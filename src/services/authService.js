@@ -11,10 +11,11 @@ const API_URL =
 
 // Function to register a user
 export const signUpUser = async (username,  password) => {
+    console.log(API_URL)
     try {
         const response = await fetch(`${API_URL}/signup`, {
             method: "POST",
-            headers: { "Con tent-Type": "application/json" },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
         });
 

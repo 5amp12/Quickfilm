@@ -15,7 +15,7 @@ exports.signUp = async (req, res) => {            //req means the request from t
 
         // Insert user into database
         const newUser = await pool.query(
-            "INSERT INTO user_accounts (username, password_hash) VALUES ($1, $2)",
+            "INSERT INTO user_accounts (username, password_hash) VALUES ($1, $2) RETURNING id, username",
             [username, hashedPassword]
         );
 
