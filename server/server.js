@@ -16,6 +16,21 @@ app.get(["/health", "/api/health"], (req, res) => {
       const hasUrl = !!process.env.SUPABASE_DB_URL;
       const hasParts = !!process.env.SUPABASE_DB_HOST;
       const dbMode = hasUrl ? "supabase-url" : hasParts ? "supabase-parts" : "local";
+      let urlInfo = null;
+      if (hasUrl) {
+        try {
+          const u = new URL(process.env.SUPABASE_DB_URL);
+          urlInfo = {
+            protocol: u.protocol.replace(":", ""),
+            hostFromUrl: u.hostname,
+            portFromUrl: u.port,
+            userFromUrl: decodeURIComponent(u.username),
+            dbFromUrl: (u.pathname || "").replace(/^\//, ""),
+          };
+        } catch (_) {
+          urlInfo = { parseError: true };
+        }
+      }
       res.json({
         ok: true,
         dbMode,
@@ -24,6 +39,7 @@ app.get(["/health", "/api/health"], (req, res) => {
         host: process.env.SUPABASE_DB_HOST || process.env.LOCAL_DB_HOST || "localhost",
         port: Number(process.env.SUPABASE_DB_PORT || process.env.LOCAL_DB_PORT || 5432),
         user: process.env.SUPABASE_DB_USER || process.env.LOCAL_DB_USER || "postgres",
+        urlInfo,
       });
 });
 //To check the connection is working, go to /health
