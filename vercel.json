@@ -1,7 +1,4 @@
 {
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/[...all].js" }
-  ],
   "rewrites": [
     { "source": "/auth/(.*)", "destination": "/api/auth/$1" },
     { "source": "/health", "destination": "/api/health" }
