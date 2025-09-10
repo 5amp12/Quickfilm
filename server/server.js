@@ -9,13 +9,17 @@ app.use(express.json()); // Allows JSON request bodies
 app.use(cors()); // Enables frontend requests
 
 // Routes
-console.log("hello")
-app.use("/api/auth", authRoutes);   
+console.log("hello - getting caught here")
+app.use("/auth", authRoutes);   
 
-app.get("/api/health", (req, res) => {
+app.get("/health", (req, res) => {
   res.json({ ok: true, env: process.env.SUPABASE_DB_URL ? "vercel/supabase" : "local" });
 });
-//To check the connection is working, go to api/health
+//To check the connection is working, go to /health
+
+app.use((req, res) => {
+  res.status(404).json({ error: "Not found", path: req.originalUrl });
+});
 
 module.exports = app;      //  <- exporting for vercel
 
