@@ -1,7 +1,7 @@
 const API_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:5000/api/auth"
-    : "/api/auth";  //telling frontend where to send backend requests
+    : "/auth";  //telling frontend where to send backend requests
 
 //When ran in Vercel it is in "deploy mode" when run using node it is in "development" mode
 
