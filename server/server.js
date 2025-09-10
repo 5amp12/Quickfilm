@@ -13,12 +13,18 @@ app.use(cors()); // Enables frontend requests
 app.use(["/auth", "/api/auth"], authRoutes);
 
 app.get(["/health", "/api/health"], (req, res) => {
-  res.json({ ok: true, env: process.env.SUPABASE_DB_URL ? "vercel/supabase" : "local" });
-});
-
-// Optional: Express-based ping so /api/ping also works through the app
-app.get("/api/ping", (req, res) => {
-  res.status(200).json({ pong: true, from: "express", now: new Date().toISOString() });
+      const hasUrl = !!process.env.SUPABASE_DB_URL;
+      const hasParts = !!process.env.SUPABASE_DB_HOST;
+      const dbMode = hasUrl ? "supabase-url" : hasParts ? "supabase-parts" : "local";
+      res.json({
+        ok: true,
+        dbMode,
+        usingUrl: hasUrl,
+        usingParts: hasParts,
+        host: process.env.SUPABASE_DB_HOST || process.env.LOCAL_DB_HOST || "localhost",
+        port: Number(process.env.SUPABASE_DB_PORT || process.env.LOCAL_DB_PORT || 5432),
+        user: process.env.SUPABASE_DB_USER || process.env.LOCAL_DB_USER || "postgres",
+      });
 });
 //To check the connection is working, go to /health
 
