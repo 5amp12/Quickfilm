@@ -1,6 +1,6 @@
 const API_URL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:5000/auth"
+    ? "http://localhost:5000/api/auth"
     : "/api/auth";  //telling frontend where to send backend requests
 
 //When ran in Vercel it is in "deploy mode" when run using node it is in "development" mode
@@ -14,7 +14,7 @@ export const signUpUser = async (username,  password) => {
     try {
         const response = await fetch(`${API_URL}/signup`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Con tent-Type": "application/json" },
             body: JSON.stringify({ username, password }),
         });
 
