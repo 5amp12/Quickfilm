@@ -9,11 +9,16 @@ app.use(express.json()); // Allows JSON request bodies
 app.use(cors()); // Enables frontend requests
 
 // Routes
-console.log("hello - getting caught here")
-app.use("/auth", authRoutes);   
+// Support both local paths and Vercel's /api prefix
+app.use(["/auth", "/api/auth"], authRoutes);
 
-app.get("/health", (req, res) => {
+app.get(["/health", "/api/health"], (req, res) => {
   res.json({ ok: true, env: process.env.SUPABASE_DB_URL ? "vercel/supabase" : "local" });
+});
+
+// Optional: Express-based ping so /api/ping also works through the app
+app.get("/api/ping", (req, res) => {
+  res.status(200).json({ pong: true, from: "express", now: new Date().toISOString() });
 });
 //To check the connection is working, go to /health
 

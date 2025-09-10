@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 
 exports.signUp = async (req, res) => {            //req means the request from the user  and res is used for the response to the user
     const {username, password} = req.body;
+    console.log("Received signUp request:");
     try{
         // Hash password before storing
         const complexity = 10;
