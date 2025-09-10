@@ -1,4 +1,9 @@
-const API_URL = "http://localhost:5000/api/auth";    //telling frontend where to send backend requests
+const API_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:5000/api/auth"
+    : "/api/auth";  //telling frontend where to send backend requests
+
+//When ran in Vercel it is in "deploy mode" when run using node it is in "development" mode
 
 // This sends files to the backend, and keeps the network/API logic separate from the React components, 
 // making the app easier to manage and cleaner.
@@ -92,19 +97,3 @@ export const checkWatchList = async () => {
         return { error: "Failed to fetch watchlist" };
     }
 }
-
-// export const grabWatchList = async () => {
-//     const token = localStorage.getItem('token');
-//     try{
-//         const response = await fetch(`${API_URL}/grabWatchList`, {
-//             method: "GET",
-//             headers: {
-//                 "Authorization": `Bearer ${token}`,
-//             },
-//         });
-//         return await response.json();
-//     }catch (error){
-//         console.error("Error grabbing the watchlist:", error);  
-//         return { error: "Failed to grab watchlist" };
-//     }
-// }

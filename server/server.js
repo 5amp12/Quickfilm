@@ -3,16 +3,20 @@ const cors = require("cors"); // Allows frontend to connect
 const authRoutes = require("./routes/authRoutes"); // Import routes
 
 const app = express();
-const PORT = 5000;
 
 // Middleware
 app.use(express.json()); // Allows JSON request bodies
 app.use(cors()); // Enables frontend requests
 
 // Routes
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRoutes);   
 
-// Start Server
-app.listen(PORT, () => {
-    console.log(` Server running on http://localhost:${PORT}`);
-});
+module.exports = app;      //  <- exporting for vercel
+
+// Only start a listener if this file is executed directly (local dev)
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running locally on http://localhost:${PORT}`);
+  });
+}
