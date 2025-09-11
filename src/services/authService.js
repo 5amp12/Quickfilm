@@ -3,7 +3,7 @@ const API_URL =
     ? "http://localhost:5000/api/auth"
     : "/api/auth";  //telling frontend where to send backend requests
 
-//When ran in Vercel it is in "deploy mode" when run using node it is in "development" mode
+//When ran in Vercel it is in "deploy mode" when run using localhost it is in "development" mode
 
 // This sends files to the backend, and keeps the network/API logic separate from the React components, 
 // making the app easier to manage and cleaner.
