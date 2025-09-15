@@ -3,12 +3,14 @@ import "./Header.css"
 import searchIcon from '../../assets/search-icon2.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 
 function Header() {
   const [input, setInput] = useState("");
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [menuOpen, setMenuOpen] = useState("");
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
    
   const searchSubmit = (event) => {
@@ -40,17 +42,33 @@ function Header() {
     const UserChange = () => {        
       setToken(localStorage.getItem('token') || '');  
     };
-
+    
     UserChange();
     
-    window.addEventListener('storage', UserChange); 
-    console.log("change here")
+    window.addEventListener('storage', UserChange);    //keeps everything up to date, with what user is signed in
 
     return () => {    //clean up function
       window.removeEventListener('storage', UserChange);
     };
 
   }, []);
+
+  useEffect(() => {
+    if (token){
+      try{
+        const decoded = jwtDecode(token);
+        setUsername(decoded.username);
+      } catch (err) {
+        console.error("Invalid token", err);
+        setUsername("")
+      }
+    }
+    else{
+      console.log("No token")
+    }
+    console.log(username)
+  }, [token])
+
 
   return (
     <header>
@@ -73,9 +91,9 @@ function Header() {
               <button onClick={toggleDropdown}className="user-Account-button">U</button>
               {menuOpen && (
                 <div className='dropdown-menu'>
-                  <a onClick={info}>Info</a>
-                  <a onClick={signOut}>Sign Out</a>
-                  <a>Example</a>
+                  <span className="dropdown-account"href='#'>{username}</span>
+                  <a onClick={info}>Account Info</a>
+                  <a onClick={signOut}>Logout</a>
                 </div>
               )}
             </div>

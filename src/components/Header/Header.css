@@ -2,10 +2,10 @@ header {
     display: flex;
     justify-content: center;
     background: rgb(24, 24, 24);
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
     color: white;
-
+    border-bottom: 1px solid #4b4b4b;
   }
   .header-content-container {
     display: flex;
@@ -18,6 +18,9 @@ header {
     margin-left: 15px;
     margin-right: 60px;
     text-decoration: none;
+    letter-spacing: 0.5px;
+    font-family: Proxima Nova, Arial, sans-serif;
+    font-weight: 600;
   }
   .home-link{
     text-decoration: none;
@@ -92,23 +95,36 @@ header {
     top: 50px; /* adjust based on your header height */
     right: 0;
     background-color: rgb(61, 61, 61);
-    border: 1px solid #000000;
+    border: 1px solid #666666;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding: 10px 5px;
+    padding: 4px 4px;
     min-width: 120px;
     z-index: 1000;
     flex-direction: column;
+    width: 100%;
   }
-  .dropdown-menu a {
-    display: block;
-    padding: 10px 20px;
+  .dropdown-account {
+    color: white;
+    border-bottom: 1px solid #aaaaaa;
+  }
+  .dropdown-account:hover {
+    cursor: text;            
+    background-color: inherit;  
+    border-radius: 0;          
+    text-decoration: none;     
+  }
+
+  .dropdown-menu span,
+  .dropdown-menu a  { 
+    display: flex;
+    justify-content: flex-start;
     text-decoration: none;
-    /* background-color: darkgrey; */
+    font-size: small;
+    padding: 9px 20px 9px 9px;
     color: #d3d3d3;
-    /* border: 1px solid #000000; */
   }
-  .dropdown-menu a:hover {
+  .dropdown-menu a:not(.dropdown-account):hover {
     cursor: pointer;
     background-color: grey;
     border-radius: 3px;
