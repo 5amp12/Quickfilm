@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { data, Link } from 'react-router-dom';
+import { data, Link, useNavigate } from 'react-router-dom';
 import { signInUser } from "../../services/authService";
+import { toast } from "react-toastify";
 import "./AuthForm.css";
 
 
@@ -8,6 +9,7 @@ function SignIn() {
     const [username, setUsername ] = useState ("");
     const [password, setPassword] = useState ("");
     const [message, setMessage] = useState ("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();  //prevents page from reloading when the form is being submitted
@@ -18,9 +20,10 @@ function SignIn() {
         } else {
             setMessage("Sign In Successful");
             localStorage.setItem('token', result.token);
-            setUsername("");
-            setPassword("");
-            window.location.reload();
+            
+            toast.success("success")
+            navigate('/');
+
         }
         // const token = localStorage.getItem('token');
         // const isLoggedIn = !!token;
@@ -44,10 +47,12 @@ function SignIn() {
             
             <form className="auth-form" onSubmit={handleSubmit}>
                 <h2>Sign In</h2>
+                {message && <p className="error-message">{message}</p>}
                 <input 
                     placeholder="username..."
                     value={username} 
                     onChange={(e) => setUsername(e.target.value)} 
+                    autoComplete="off"
                     required>
                 </input>
                 <input 
@@ -55,12 +60,13 @@ function SignIn() {
                     type="password"
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
+                    autoComplete="new-password"
                     required>
                 </input>
                 <button type="submit">Sign In</button>
                 <p id="signin-link">Don't Have an account? <Link to="../signup">Sign up</Link> </p>
             </form>
-            {message && <p className="error-message">{message}</p>}
+            
         </div>
     )
 }

@@ -16,12 +16,12 @@ exports.signUp = async (req, res) => {            //req means the request from t
 
         // Insert user into database
         const newUser = await pool.query(
-            "INSERT INTO user_accounts (username, password_hash) VALUES ($1, $2) RETURNING id, username",
+            "INSERT INTO user_accounts (username, password_hash) VALUES ($1, $2) RETURNING id, username, created_at",
             [username, hashedPassword]
         );
 
         const user = newUser.rows[0]
-        const token = jwt.sign({ userId: user.id }, 'your_secret_key', { expiresIn: '2h' });
+        const token = jwt.sign({ userId: user.id, username: user.username, accountCreation: user.created_at }, 'your_secret_key', { expiresIn: '2h' });
         res.status(201).json({ message: "User registered successfully", user, token });
     }catch (error) {        
         console.error("error :", error);
@@ -41,7 +41,7 @@ exports.signIn = async (req, res) => {
     const {username, password} = req.body;
     try{
         
-        const result = await pool.query('SELECT id, username, password_hash FROM public.user_accounts WHERE username = $1', 
+        const result = await pool.query('SELECT id, username, password_hash, created_at FROM public.user_accounts WHERE username = $1', 
             [username]
         );
         const user = result.rows[0];
@@ -50,14 +50,14 @@ exports.signIn = async (req, res) => {
         console.log("Password from DB:", `"${user.password_hash}"`)
         
         if (!user){
-            return res.status(401).json({ error: "Invalid username or     password"})
+            return res.status(401).json({ error: "Invalid username or password"})
         }
         const passwordMatch = await bcrypt.compare(password, user.password_hash);
         if (!passwordMatch){
             return res.status(401).json({ error: "Invalid username or password"})
         }
         
-        const token = jwt.sign({ userId: user.id }, 'your_secret_key', { expiresIn: '2h' });     //change the key name later
+        const token = jwt.sign({ userId: user.id, username: user.username, accountCreation: user.created_at  }, 'your_secret_key', { expiresIn: '2h' });     //change the key name later
         return res.status(200).json({ 
             message: 'Sign in successful', user,
             token

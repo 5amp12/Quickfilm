@@ -20,7 +20,16 @@ export const signUpUser = async (username,  password) => {
         });
 
         const data = await response.json();
-        return data;
+        console.log("Response status:", response.status);
+
+        if (response.ok){
+            localStorage.setItem("token", data.token);
+            return data;
+        }
+        else{
+            return { error: "Login Failed"}
+        }
+        
     } catch (error) {
         console.error("Error registering user:", error);
         return { error: "Failed to register" };
@@ -36,7 +45,13 @@ export const signInUser = async (username, password) => {
         });
 
         const data = await response.json();
-        return data;
+        if (response.ok){
+            localStorage.setItem("token", data.token);
+            return data;
+        }
+        else{
+            return { error: "Login Failed"}
+        }
     } catch (error) {
         console.error("Error signing in user:", error);
         return { error: "Failed to sign in" };
