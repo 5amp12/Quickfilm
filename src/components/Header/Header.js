@@ -11,6 +11,8 @@ function Header() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [menuOpen, setMenuOpen] = useState("");
   const [username, setUsername] = useState("");
+  const [tokenExpired, setTokenExpired] = useState(false);
+  const [userInitial, setUserInitial] = useState("");
   const navigate = useNavigate();
    
   const searchSubmit = (event) => {
@@ -37,7 +39,6 @@ function Header() {
   const info = () => {
     console.log()
   }
-  // setToken(localStorage.getItem('token'));  
   useEffect(() => {   //dealing with User change (logging in)
     const UserChange = () => {        
       setToken(localStorage.getItem('token') || '');  
@@ -53,11 +54,27 @@ function Header() {
 
   }, []);
 
+  //grabbing details about user logged in and checking if token is expired
   useEffect(() => {
     if (token){
       try{
         const decoded = jwtDecode(token);
-        setUsername(decoded.username);
+
+        const now = Math.floor(Date.now() / 1000);
+        if (!decoded.exp || decoded.exp <= now){      //checking if token expired
+          setTokenExpired(true);
+        }
+        else{
+          setUsername(decoded.username);
+          setTokenExpired(false);
+          
+          let logoLetter = decoded.username.charAt(0);
+          if (/[a-z]/.test(logoLetter)){
+            setUserInitial(logoLetter.toUpperCase());
+          } else{
+            setUserInitial(logoLetter)
+          }
+        }
       } catch (err) {
         console.error("Invalid token", err);
         setUsername("")
@@ -69,7 +86,7 @@ function Header() {
     console.log(username)
   }, [token])
 
-
+  
   return (
     <header>
       <div className='header-content-container'>
@@ -85,10 +102,10 @@ function Header() {
           <img type="submit" src={searchIcon}></img>
         </form>
         <button className="watchlist" onClick={watchlist}>Watchlist</button>
-        { token ? (
+        { tokenExpired == false && token ? (
           <>
             <div className='dropdown'>
-              <button onClick={toggleDropdown}className="user-Account-button">U</button>
+              <button onClick={toggleDropdown}className="user-Account-button">{userInitial}</button>
               {menuOpen && (
                 <div className='dropdown-menu'>
                   <span className="dropdown-account"href='#'>{username}</span>
