@@ -62,3 +62,34 @@ main{
 .error-message{
     color: wheat;
 }
+
+@media (max-width: 700px) {
+  .auth-form {
+    width: 90%;
+    padding: 20px 15px;
+  }
+  .auth-form input,
+  .auth-form button {
+    max-width: 100%;
+    font-size: 14px;
+  }
+  .auth-form h2 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 900px){
+  .auth-form {
+    max-width: 500px;
+    padding: 35px 25px;
+  }
+  .auth-form h2 {
+    font-size: 1.6rem;
+  }
+  .auth-form input,
+  .auth-form button {
+    max-width: 380px;
+    font-size: 15px;
+  }
+}
