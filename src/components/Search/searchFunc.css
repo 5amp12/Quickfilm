@@ -48,7 +48,6 @@
   .card-title-container{
     max-width: 100%;
     min-width: 0;
-    background-color: #383838; /* Light background for the title */
     font-size: 16px;
     color: #333;
     white-space: nowrap; /* Prevent wrapping */
@@ -65,3 +64,48 @@
     text-overflow: ellipsis;
     color: white;
   }
+
+/* ===== Mobile & small screens ===== */
+@media (max-width: 700px) {
+  .movie-list-search {
+    justify-content: center;  
+    gap: 0.5rem;              
+    padding: 8px;
+  }
+
+  .movie-card-search {
+    width: 140px;             
+    height: auto;             
+  }
+
+  .movie-card-search img {
+    height: 200px;            
+  }
+
+  .card-title-container {
+    font-size: 14px;          
+  }
+  
+}
+
+@media (max-width: 900px) {
+  .popular-film-container {
+    padding: 8px clamp(16px, 4vw, 24px);
+  }
+  .movie-list {
+    gap: 12px;
+  }
+}
+
+/* ===== Hover-only effects (avoid sticky hover on touch) ===== */
+@media (hover: hover) and (pointer: fine) {
+  .movie-card:hover,
+  .movie-list a:hover {
+    background-color: grey;
+    text-decoration: underline;
+    opacity: 0.9;
+    transform: scale(1.03);
+    transition: transform .2s ease-in-out, opacity .2s, background-color .2s;
+    cursor: pointer;
+  }
+}

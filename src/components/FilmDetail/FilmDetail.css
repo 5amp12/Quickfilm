@@ -85,15 +85,12 @@
 }
 .genre-box{
     padding: 5px;
-    background-color: #333; /* dark background */
+    background-color: #333; 
     color: white;
     border-radius: 2px;
     white-space: nowrap;
     user-select: none;
     flex: 1;
-    /* margin: 5px; */
-    /* display: flex;
-    justify-content: flex-end; */
 }
 .add-film-list{
     display: flex;
@@ -105,7 +102,6 @@
 }
 .add-film-list button{
     background-color: rgb(123, 64, 163);
-    /* color: white; */
     padding: 10px 20px;
     border: red;
     border-radius: 2px;
@@ -115,6 +111,7 @@
     /* transition: background-color 0.3s ease, transform 0.2s ease; */
     /* white-space: nowrap; */
 }
+
 #poster {
     width: 200px;         
     aspect-ratio: 2 / 3;  
@@ -172,30 +169,129 @@
     font-weight: 400;
     cursor: pointer;
 }
-
-
-
 .title-runtime-container {    /*dont't think this is used*/
     display: flex;
     justify-content: space-between;
     /* align-items: center; */
     width: 100%;    
 }
-/* #title {
-    margin: 0;
-    display: flex;
-    font-size: x-large;
+
+/* ===== Phones & small screens ===== */
+@media (max-width: 700px) {
+  .movieContainer{
+    max-width: 100%;               
+    padding: 12px; 
+    padding-top: 16px; 
+    width: 100%;
+  }
+  .movie-contents{
+    flex-direction: column;
+    gap: 12px;
+    width: 100% ;
+    min-width: 0;
+  }
+  #poster{
+    width: clamp(140px, 60vw, 220px); 
+    margin-right: 0;
+    margin-bottom: 8px;
+    align-self: center;               
+    max-width: 100%;
+  }
+  .poster-extra-content {
+    min-width: 0;
+  }
+  .info-container{
+    max-width: 100% ;
+    padding-right: 0;
+    min-width: 0;
+  }
+
+  #movie-title{
+    margin: 0 0 6px 0;
+    font-size: clamp(18px, 5.6vw, 24px);
+    line-height: 1.2;
+  }
+
+  #movieDate{
+    color: #b3b3b3;
+    font-size: 14px;
+    margin: 0 0 8px 0;
+  }
+
+  #description{
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 8px 0 10px 0;
+    min-width: 0;
+  
+  }
+  .rating-runtime-container{
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 14px;
+    margin: 6px 0 10px 0;
+  }
+
+  #star-icon{
+    width: 18px;
+    height: 18px;
+  }
+  .genre-list{
+    gap: 6px;
+    width: 100%;
+    padding-right: 0;
+    padding-bottom: 8px;
+  }
+  .genre-box{
+    padding: 6px 8px;
+    border-radius: 4px;
+    flex: 0 0 auto;                 
+    font-size: 13px;
+    background-color: #2b2b2b;
+  }
+
+  .add-film-list{
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .add-film-list button{
+    padding: 10px 14px;
+    font-size: 14px;
+    min-height: 40px;               
+  }
+  .poster-quiz-container{
+    flex-direction: column;
+    gap: 10px;
+  }
+  .budget-quiz-container{
+    gap: 6px;
+  }
+  .budget-quiz{
+    padding: 10px 14px;
+    font-size: 14px;
+    background-color: #3a3a3a;
+  }
 }
-#runtime {
-    margin: 0;
-    display: flex;
-    font-size: x-large;
+
+/* ===== Small tablets (portrait) ===== */
+@media (min-width: 701px) and (max-width: 900px) {
+  .movieContainer { max-width: 900px; }
+  .movie-contents { gap: 12px; }
+  #poster { width: clamp(180px, 26vw, 260px); }
+  #description { font-size: 16px; }
+  .genre-box { padding: 6px 10px; }
 }
-#description {
-    padding-top: 20px;
-    margin: 0;
-    color: white;
-    font-size: large;
-    text-align: left;
-} */
+
+/* ===== Hover effects only for non-touch to avoid sticky hover ===== */
+@media (hover: hover) and (pointer: fine) {
+  .budget-quiz:hover,
+  .add-film-list button:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+    transition: transform .15s ease, filter .15s ease;
+  }
+}
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
