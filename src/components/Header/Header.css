@@ -129,3 +129,85 @@ header {
     background-color: grey;
     border-radius: 3px;
   }
+
+
+/* --- Mobile tweaks --- */
+  @media (max-width: 700px) {
+  header {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    max-width: 100%;
+  }
+
+  .header-content-container {
+    gap: 8px; 
+    max-width: 100%;            
+  }
+
+
+  header h2 {
+    margin: 0;                
+    font-size: clamp(16px, 5vw, 20px);
+    letter-spacing: .3px;
+  }
+
+  .search-container {
+    max-width: none;          
+    width: 100%;
+    margin: 0;                
+    border-radius: 6px;
+  }
+  .search-container input {
+    width: 100%;             
+    padding: 12px;
+    font-size: 15px;
+  }
+  .search-container img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+
+  header button {
+    padding: 8px 10px;
+    margin-right: 6px;
+    font-size: 14px;
+  }
+  .watchlist {               
+    margin-left: 8px;
+  }
+  .sign-in {
+    margin-right: 8px;
+    min-width: 0;             
+  }
+
+ 
+  .user-Account-button {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    min-width: 36px;
+  }
+
+  
+  .dropdown-menu {
+    top: calc(100% + 8px);   
+    right: 0;
+    min-width: 180px;         
+    width: auto;              
+    padding: 6px;
+  }
+  .dropdown-menu span,
+  .dropdown-menu a {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+/* --- Small tablets portrait --- */
+@media (max-width: 900px) {
+  .header-content-container {
+    padding: 0 16px;
+  }
+  .search-container { max-width: 520px; } 
+}
