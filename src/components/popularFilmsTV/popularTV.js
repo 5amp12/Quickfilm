@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { Link } from 'react-router-dom';
 import { fetchPopularTV } from "../../services/api";
 import LoadingScreen from "../LoadingScreen/LoadingScreen"
 import "./popularFilmsTV.css";
@@ -74,11 +75,13 @@ function popularTV(){
                 </button>
 
                 <div className="movie-list" ref={tvListRef}>
-                    {tvList.map((movie) => ( 
-                        <div key={movie.id} className="movie-card">
-                            <img src={movie.poster}/> 
-                            <div className='card-title-container'><p>{movie.title}</p></div>
-                        </div>
+                    {tvList.map((tv) => ( 
+                        <Link key={tv.id} to={`/tv/${tv.id}`}>
+                            <div key={tv.id} className="movie-card">
+                                <img src={tv.poster}/> 
+                                <div className='card-title-container'><p>{tv.title}</p></div>
+                            </div>
+                        </Link>
                     ))}
                 </div>
 
