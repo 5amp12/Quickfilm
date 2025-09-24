@@ -95,6 +95,24 @@ export const fetchFilmId = async (id) => {
         , options
     );
     if (!response.ok) {
+      throw new Error("Failed to fetch Movie");
+    }
+
+    const data =  await response.json();
+    return data
+  } catch (error) {
+    console.error("Error fetching Movie:", error);
+    return { results: [] };
+  }
+};
+
+export const fetchTvId = async (id) => {
+  try {
+    const response = await fetch(
+        `https://api.themoviedb.org/3/tv/${id}`
+        , options
+    );
+    if (!response.ok) {
       throw new Error("Failed to fetch Shows");
     }
 

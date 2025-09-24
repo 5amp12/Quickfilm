@@ -70,12 +70,13 @@ exports.signIn = async (req, res) => {
 
 exports.watchlist = async (req, res) => {
     const userId = req.userId;
-    const { movieId } = req.body; 
+    const { mediaId, type } = req.body; 
+    
 
     try {
         await pool.query(
-            "INSERT INTO public.user_watchlist (user_id, movie_id) VALUES ($1, $2)",
-            [userId, movieId]
+            "INSERT INTO public.user_watchlist (user_id, movie_id, type) VALUES ($1, $2, $3)",
+            [userId, mediaId, type]
         );
         res.json({ message: "Movie added to watchlist" });
     } catch (error) {
@@ -86,12 +87,12 @@ exports.watchlist = async (req, res) => {
 
 exports.remove_watchlist = async (req, res) => {
     const userId = req.userId;
-    const { movieId } = req.body; 
+    const { movieId, type } = req.body; 
 
     try {
         await pool.query(
-            "DELETE FROM public.user_watchlist WHERE user_id = $1 AND movie_id = $2",
-            [userId, movieId]
+            "DELETE FROM public.user_watchlist WHERE user_id = $1 AND movie_id = $2 AND type = $3" ,
+            [userId, movieId, type]
         );
         res.json({ message: "Movie removed from watchlist" });
     } catch (error) {
@@ -104,10 +105,15 @@ exports.checkWatchList = async (req, res) => {
     const userId = req.userId;
     try {
         const result = await pool.query(
-        "SELECT movie_id FROM public.user_watchlist WHERE user_id = $1",
+        "SELECT movie_id, type FROM public.user_watchlist WHERE user_id = $1",
         [userId]
         );
-        res.json({ watchlist: result.rows.map(row => row.movie_id) });
+        res.json({ 
+            watchlist: result.rows.map(row => ({
+                id: row.movie_id,
+                type: row.type
+            }))
+        });  
     } catch (error) {
         console.error("Error fetching watchlist:", error);
         res.status(500).json({ error: "Failed to fetch watchlist" });

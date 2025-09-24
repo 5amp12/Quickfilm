@@ -58,7 +58,7 @@ export const signInUser = async (username, password) => {
     }
 }
 
-export const watchlist = async (movieId) => {
+export const watchlist = async (mediaId, type) => {
     const token = localStorage.getItem('token');
     try{
         const response = await fetch(`${API_URL}/watchlist`, {
@@ -67,7 +67,7 @@ export const watchlist = async (movieId) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
-            body: JSON.stringify({ movieId }),
+            body: JSON.stringify({ mediaId, type }),
         });
 
         const data = await response.json();
@@ -78,7 +78,7 @@ export const watchlist = async (movieId) => {
     }
 }
 
-export const remove_watchlist = async (movieId) => {
+export const remove_watchlist = async (movieId, type) => {
     const token = localStorage.getItem('token');
     try{
         const response = await fetch(`${API_URL}/remove_watchlist`, {
@@ -87,7 +87,7 @@ export const remove_watchlist = async (movieId) => {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
-            body: JSON.stringify({ movieId }),
+            body: JSON.stringify({ movieId, type }),
         });
 
         const data = await response.json();

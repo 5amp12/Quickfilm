@@ -103,7 +103,11 @@
                 const checkWatchlist = async () => {
                     try {
                         const result = await checkWatchList();
-                        if (result.watchlist.includes(movieData.id)) {
+                        if (
+                            result.watchlist?.some(
+                                (item) => Number(item.id) === Number(movieData.id) && item.type === 'film'
+                            )
+                        ) {
                             setAddedMovie(true);
                         }
                     } catch (err) {
@@ -119,11 +123,11 @@
         const settingWatchlist = async(e) => {
             console.log(movieData.id)
             if (addedMovie === true){
-               const result = await remove_watchlist(movieData.id);
+               const result = await remove_watchlist(movieData.id, "film");
               setAddedMovie(false);
             }
-            else{
-                const result = await watchlist(movieData.id);
+            else{   
+                const result = await watchlist(movieData.id, "film");
                 if (result.error){
                     alert(result.error)
                 } else{
