@@ -1,5 +1,5 @@
 const express = require("express");
-const { signUp, signIn, watchlist, remove_watchlist, checkWatchList } = require("../controllers/authController");
+const { signUp, signIn, watchlist, remove_watchlist, checkWatchList, addRating } = require("../controllers/authController");
 const authenticateToken = require("../middleware/authMiddleware");
 
 const authController = require("../controllers/authController");
@@ -12,6 +12,7 @@ router.post("/signin", signIn);
 router.post("/watchlist", authenticateToken, watchlist)
 router.post("/remove_watchlist", authenticateToken, remove_watchlist)
 router.get('/checkWatchList', authenticateToken, checkWatchList);
+router.post('/addRating', authenticateToken, addRating);
 
 // router.post("/signin", signIn);  // Existing Sign-in Route
 

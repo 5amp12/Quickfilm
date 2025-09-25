@@ -113,3 +113,21 @@ export const checkWatchList = async () => {
         return { error: "Failed to fetch watchlist" };
     }
 }
+
+export const addRating = async (mediaId, type, rating) => {
+    const token = localStorage.getItem('token');
+    try {
+        const response = await fetch(`${API_URL}/addRating`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({ mediaId, type, rating }),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error adding Rating:", error);  
+        return { error: "Failed to add Rating" };
+    }
+}

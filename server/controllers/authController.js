@@ -120,5 +120,24 @@ exports.checkWatchList = async (req, res) => {
     }
 }
 
+exports.addRating = async (req, res) => {
+    const userId = req.userId;
+    const { mediaId, type, rating } = req.body; 
+
+    try {
+        await pool.query(
+            `INSERT INTO public.user_rating (user_id, movie_id, type, rating) 
+            VALUES ($1, $2, $3, $4) 
+            ON CONFLICT (user_id, movie_id, type) 
+            DO UPDATE SET rating = EXCLUDED.rating`,
+            [userId, mediaId, type, rating]
+        );
+        res.json({ message: "Media has been successfully rated" });
+    } catch (error) {
+        console.error("Error rating media: ", error);
+        res.status(500).json({ error: "Failed to rated media" });
+    }
+}
+
 // exports.grabWatchList = 
 
