@@ -1,9 +1,10 @@
     import { useParams } from 'react-router-dom';
     import { useEffect, useState, useRef } from "react";
     import { fetchFilmId } from "../../services/api";
-    import { watchlist, checkWatchList, remove_watchlist } from "../../services/authService";
+    import { watchlist, checkWatchList, remove_watchlist, addRating } from "../../services/authService";
     import starIcon from '../../assets/icons8-star-48.png';
     import LoadingScreen from "../LoadingScreen/LoadingScreen"
+    import Popup from "../Popup/Popup"
     import 'typeface-playfair-display';             //font
     import "./FilmDetail.css";
 
@@ -19,6 +20,8 @@
         const [isBudgetDisabled, setIsBudgetDisabled] = useState(false);
         const [noBudget, setNoBudget] = useState(false);
         const [addedMovie, setAddedMovie] = useState(false);
+        const [ratingClicked, setRatingClicked] = useState(false);
+        const [starRating, setStarRating] = useState(0);
         
         useEffect(() => {
             const filmData = async () => {
@@ -120,7 +123,7 @@
             
         }, [movieData]);
 
-        const settingWatchlist = async(e) => {
+        const settingWatchlist = async() => {
             console.log(movieData.id)
             if (addedMovie === true){
                const result = await remove_watchlist(movieData.id, "film");
@@ -131,13 +134,23 @@
                 if (result.error){
                     alert(result.error)
                 } else{
-                    alert("Movie added to watchlist")
                     setAddedMovie(true);
                 }
             }
-            // setMessage
-            // alert
         }
+
+        //When rating popup is active, user cannot scroll
+        useEffect(() => {
+            if (ratingClicked) {
+                const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+                document.body.style.overflow = "hidden";
+                document.body.style.paddingRight = `${scrollBarWidth}px`; // to stop slight jump when scroll bar is removed
+            } else {
+                document.body.style.overflow = "auto";
+                document.body.style.paddingRight = "0px";
+            }
+        }, [ratingClicked])
+
 
         const correctBudget = (budgetGuess) => {
             console.log(budgetGuess);
@@ -147,6 +160,40 @@
                 setIsBudgetDisabled(true)
             }
         } 
+
+        const renderRating = () => {
+            const stars = []
+            for(let i = 0; i < 10; i++){
+                const n = i + 1;
+                stars.push(
+                    <button
+                        key={n}
+                        className={n <= 3 ? "star active" : "star"}
+                        onClick={() => setStarRating(n)}
+                    >
+                    {n <= starRating ? "★" : "☆"}
+                    </button>
+                );
+            }
+            return (stars);
+        }
+
+        const passRating = async() => {
+            console.log(movieData.id)
+            // if (addedMovie === true){
+            //    const result = await remove_watchlist(movieData.id, "film", );
+            //   setAddedMovie(false);
+            // }
+            // else{   
+                const result = await addRating(movieData.id, "film", starRating);
+                if (result.error){
+                    alert(result.error)
+                } else{
+                    // setAddedMovie(true);
+                    alert("rated Movie?")
+                }
+            // }
+        }
 
         if (loading || !movieData) {
             console.log(movieData);
@@ -177,7 +224,7 @@
                                 <button onClick={settingWatchlist} style={{backgroundColor: addedMovie ? 'grey' : 'rgb(123, 64, 163)',}} >
                                     {addedMovie ? 'Added to Watchlist' : 'Add to Watchlist'}
                                 </button>
-                                <button>Rate this Film</button> 
+                                <button onClick={() => setRatingClicked(true)} >Rate this Film</button> 
                             </div>
                         </div>
 
@@ -220,6 +267,13 @@
                         </div>
                     </div>
                 </div>
+                <Popup trigger={ratingClicked}>
+                    <button className='close-button' onClick={() => setRatingClicked(false)}>close</button>
+                    <div className="stars">
+                        {renderRating()}
+                    </div>
+                    <button onClick={passRating}>save</button>
+                </Popup>
             </div>    
         );
     }
