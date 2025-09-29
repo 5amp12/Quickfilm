@@ -139,5 +139,23 @@ exports.addRating = async (req, res) => {
     }
 }
 
-// exports.grabWatchList = 
+exports.checkRatingsList = async (req, res) => {
+    const userId = req.userId;
+    try {
+        const result = await pool.query(
+        "SELECT movie_id, type, rating FROM public.user_rating WHERE user_id = $1",
+        [userId]
+        );
+        res.json({ 
+            ratings: result.rows.map(row => ({
+                id: row.movie_id,
+                type: row.type,
+                rating: row.rating
+            }))
+        });  
+    } catch (error) {
+        console.error("Error fetching watchlist:", error);
+        res.status(500).json({ error: "Failed to fetch watchlist" });
+    }
 
+}
