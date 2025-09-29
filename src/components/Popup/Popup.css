@@ -16,6 +16,61 @@
     max-width: 640px;
     background-color: grey;
 }
-.close-button{
-    
+.close-button,
+.save-button
+{
+    place-items: center;
+    border: 2px solid rgb(73, 73, 73) ;
+    border-radius: 4px;
+    background-color: rgb(111, 111, 111);
+    color: #111;
+    font-size: 17px;
+    line-height: 1;
+    cursor: pointer;
 }
+
+.close-button{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    block-size: 36px;
+    display: grid;
+}
+
+.stars {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+}
+
+.star,
+.star-active {
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 6px;                          
+  font-size: clamp(22px, 4vw, 36px);     
+  line-height: 1;
+  cursor: pointer;
+  color: #343434;                        
+  transition: transform 120ms ease, filter 120ms ease, color 120ms ease;
+}
+
+.star-active{
+  color: #f5c518;                     
+}
+
+.star:hover {
+  transform: scale(1.12) translateY(-1px);
+  filter: brightness(1.05);
+}
+
+/* Keyboard accessibility */
+.star:focus-visible {
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+

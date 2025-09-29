@@ -173,7 +173,7 @@
                 stars.push(
                     <button
                         key={n}
-                        className={n <= 3 ? "star active" : "star"}
+                        className={n <= currentStarRating ? "star-active" : "star"}
                         onClick={() => setCurrentStarRating(n)}
                     >
                     {n <= currentStarRating ? "★" : "☆"}
@@ -317,6 +317,7 @@
                         {renderRating()}
                     </div>
                     <button 
+                        className='save-button'
                         onClick={async () => {
                             const ok = await passRating();
                             if (ok) setRatingClicked(false);
