@@ -131,3 +131,21 @@ export const addRating = async (mediaId, type, rating) => {
         return { error: "Failed to add Rating" };
     }
 }
+
+export const checkRatingsList = async () => {
+    const token = localStorage.getItem('token');
+    try {
+        const response = await fetch(`${API_URL}/checkRatingsList`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching ratings:", error);  
+        return { error: "Failed to fetch ratings" };
+    }
+}
+
+//change rating
