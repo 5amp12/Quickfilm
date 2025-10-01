@@ -110,6 +110,9 @@ function Header() {
                 <div className='dropdown-menu'>
                   <span className="dropdown-account"href='#'>{username}</span>
                   <a onClick={info}>Account Info</a>
+                  <Link to="/ratings">
+                    Ratings
+                  </Link>
                   <a onClick={signOut}>Logout</a>
                 </div>
               )}
