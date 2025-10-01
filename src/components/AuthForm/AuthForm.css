@@ -48,12 +48,28 @@ main{
     font-size: 14px;
 }
 .auth-form button{
-    width: 80%;
-    padding: 12px;
-    margin-top: 20px;
+  -webkit-appearance: none; /* iOS Safari */
+  appearance: none;
+
+  display: inline-block;
+  width: 80%;
+  padding: 12px;
+  margin-top: 20px;
+
+  background-color: #e5e5e5; 
+  color: #111;                 
+  border: 1px solid #bdbdbd;   
+  border-radius: 6px;          
+  font: inherit;              
+  line-height: 1;              
+  text-decoration: none; 
+  font-size: small;  
 }
 .auth-form button:hover{
     background-color: rgb(191, 190, 192);
+}
+.auth-switch-link{
+  color: rgb(150, 2, 150)
 }
 #signin-link{
     color: white;
