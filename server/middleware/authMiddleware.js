@@ -10,7 +10,7 @@ function authenticateToken(req, res, next) {
 
   jwt.verify(token, 'your_secret_key', (err, decoded) => {
     if (err) {
-      return res.status(403).json({ error: 'Invalid or expired token.' });
+      return res.status(403).json({ error: 'Please sign in to use this feature.' });
     }
 
     req.userId = decoded.userId;  // Attach userId from token to request object

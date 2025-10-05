@@ -1,6 +1,7 @@
     import { useParams } from 'react-router-dom';
     import { useEffect, useState, useRef } from "react";
     import { fetchFilmId } from "../../services/api";
+    import { toast } from "react-toastify";
     import { watchlist, checkWatchList, remove_watchlist, addRating, checkRatingsList } from "../../services/authService";
     import starIcon from '../../assets/icons8-star-48.png';
     import LoadingScreen from "../LoadingScreen/LoadingScreen"
@@ -137,7 +138,9 @@
             else{   
                 const result = await watchlist(movieData.id, "film");
                 if (result.error){
-                    alert(result.error)
+                    toast.error(result.error, {
+                        position: "top-center"
+                    });
                 } else{
                     setAddedMovie(true);
                 }
@@ -188,7 +191,9 @@
             try{
                 const result = await addRating(movieData.id, "film", currentStarRating);
                 if (result.error){
-                    alert(result.error)
+                    toast.error(result.error, {
+                        position: "top-center"
+                    });
                 } else{
                     setPassedStarRating(currentStarRating)
                     return true;

@@ -28,7 +28,6 @@ function App() {
             
             {/* https://fkhadra.github.io/react-toastify/introduction/ */}
             <ToastContainer 
-                position="top-right"
                 autoClose={2000}
                 hideProgressBar={false} 
                 newestOnTop={false}
