@@ -21,7 +21,7 @@ exports.signUp = async (req, res) => {            //req means the request from t
         );
 
         const user = newUser.rows[0]
-        const token = jwt.sign({ userId: user.id, username: user.username, accountCreation: user.created_at }, 'your_secret_key', { expiresIn: '2h' });
+        const token = jwt.sign({ userId: user.id, username: user.username, accountCreation: user.created_at }, 'your_secret_key', { expiresIn: '12h' });
         res.status(201).json({ message: "User registered successfully", user, token });
     }catch (error) {        
         console.error("error :", error);
@@ -57,7 +57,7 @@ exports.signIn = async (req, res) => {
             return res.status(401).json({ error: "Invalid username or password"})
         }
         
-        const token = jwt.sign({ userId: user.id, username: user.username, accountCreation: user.created_at  }, 'your_secret_key', { expiresIn: '2h' });     //change the key name later
+        const token = jwt.sign({ userId: user.id, username: user.username, accountCreation: user.created_at  }, 'your_secret_key', { expiresIn: '12h' });     //change the key name later
         return res.status(200).json({ 
             message: 'Sign in successful', user,
             token
