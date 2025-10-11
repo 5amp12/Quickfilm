@@ -110,6 +110,7 @@ function Header() {
                 <div className='dropdown-menu'>
                   <span className="dropdown-account"href='#'>{username}</span>
                   <a onClick={info}>Account Info</a>
+                  <Link to="/add-friends">+ Add friends</Link>
                   <Link to="/ratings">
                     Ratings
                   </Link>
