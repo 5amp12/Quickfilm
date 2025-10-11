@@ -9,6 +9,7 @@ import FilmDetailView from "./pages/FilmDetailView"
 import TvDetailView from "./pages/TvDetailView"
 import WatchListView from "./pages/WatchListView"
 import RatingView from "./pages/RatingView";
+import AddFriendsView from "./pages/AddFriendsView";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/tv/:id" element={<TvDetailView />} />
                     <Route path="/watchlist" element={<WatchListView />} />
                     <Route path="/ratings" element={<RatingView />} />
+                    <Route path="/add-friends" element={<AddFriendsView/>} />
                 </Routes>
             </Router>
             
