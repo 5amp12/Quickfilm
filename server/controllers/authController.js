@@ -3,8 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
 
-
- //WHEN EDITING HERE MAKE SURE TO RELOAD NODE SERVER.JS COMMAND TO SEE EFFECTS
+//WHEN EDITING HERE MAKE SURE TO RELOAD NODE SERVER.JS COMMAND TO SEE EFFECTS
 
 exports.signUp = async (req, res) => {            //req means the request from the user  and res is used for the response to the user
     const {username, password} = req.body;
@@ -158,4 +157,47 @@ exports.checkRatingsList = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch watchlist" });
     }
 
+}
+
+exports.addFriend = async (req, res) => {
+    const userId = req.userId;
+    const { addresseeUsername } = req.body; 
+
+    if (!addresseeUsername){
+        return res.status(400).json({ error: "Username is required." });
+    }
+
+
+    try {
+
+        const username_check = await pool.query(
+            `SELECT id FROM public.user_accounts WHERE username = $1`,
+            [addresseeUsername]
+        );
+        if (username_check.rowCount === 0){
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        let addresseeId = username_check.rows[0].id;
+        if (addresseeId === userId){
+            return res.status(400).json({ error: "You cannot add yourself." });
+        }
+
+        const insert = await pool.query(
+            `INSERT INTO public.friendship (requester_id, addressee_id) 
+            VALUES ($1, $2)
+            ON CONFLICT (LEAST(requester_id, addressee_id),
+            GREATEST(requester_id, addressee_id)) DO NOTHING`,
+            [userId, addresseeId]
+        );
+
+        if (insert.rowCount === 0){
+            return res.status(409).json({ error: "You have already added this user" });
+        }
+
+        res.json({ message: "Friend request sent" });
+    } catch (error) {
+        console.error("Error adding user: ", error);
+        res.status(500).json({ error: "Failed to add user" });
+    }
 }
