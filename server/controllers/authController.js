@@ -201,3 +201,24 @@ exports.addFriend = async (req, res) => {
         res.status(500).json({ error: "Failed to add user" });
     }
 }
+
+exports.getFriends = async (req, res) => {
+    const userId = req.userId;
+    try{
+        const result = await pool.query(
+            "SELECT requester_id, addressee_id, status FROM public.friendship WHERE requester_id = $1 OR addressee_id = $1",
+            [userId]
+        )
+        res.json({ 
+                friends: result.rows.map(row => ({
+                requester_id: row.requester_id,
+                addressee_id: row.addressee_id,
+                status: row.status
+            }))
+        });  
+    }
+    catch (error) {
+        console.error("Error fetching friends:", error);
+        res.status(500).json({ error: "Failed to fetch friends" });
+    }
+}

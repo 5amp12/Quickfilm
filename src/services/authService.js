@@ -166,4 +166,20 @@ export const addFriend = async (addresseeUsername) => {
     }
 }
 
+export const getFriends = async (addresseeUsername) => {
+    const token = localStorage.getItem('token');
+    try{
+        const response = await fetch(`${API_URL}/get-friends`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error adding friend:", error);  
+        return { error: "Failed to add friend" };
+    }
+}
+
 //change rating

@@ -1,5 +1,5 @@
 const express = require("express");
-const { signUp, signIn, watchlist, remove_watchlist, checkWatchList, addRating, checkRatingsList, addFriend } = require("../controllers/authController");
+const { signUp, signIn, watchlist, remove_watchlist, checkWatchList, addRating, checkRatingsList, addFriend, getFriends } = require("../controllers/authController");
 const authenticateToken = require("../middleware/authMiddleware");
 
 const authController = require("../controllers/authController");
@@ -15,6 +15,7 @@ router.get('/checkWatchList', authenticateToken, checkWatchList);
 router.post('/addRating', authenticateToken, addRating);
 router.get('/checkRatingsList', authenticateToken, checkRatingsList);   
 router.post('/add-friend', authenticateToken, addFriend);
+router.get('/get-friends', authenticateToken, getFriends)
 
 // router.post("/signin", signIn);  // Existing Sign-in Route
 
