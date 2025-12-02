@@ -36,9 +36,6 @@ function Header() {
     navigate('/watchlist');
   }
 
-  const info = () => {
-    console.log()
-  }
   useEffect(() => {   //dealing with User change (logging in)
     const UserChange = () => {        
       setToken(localStorage.getItem('token') || '');  
@@ -109,7 +106,7 @@ function Header() {
               {menuOpen && (
                 <div className='dropdown-menu'>
                   <span className="dropdown-account"href='#'>{username}</span>
-                  <a onClick={info}>Account Info</a>
+                  <Link to="/account-information">Account Info</Link>
                   <Link to="/add-friends">+ Add friends</Link>
                   <Link to="/ratings">
                     Ratings

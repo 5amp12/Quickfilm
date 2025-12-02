@@ -1,0 +1,52 @@
+
+.acc-info-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.acc-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    background-color: rgb(79, 79, 79);
+    width: 70%;
+    border: 2px solid rgb(97, 97, 97);
+    border-radius: 6px;
+    padding-bottom: 18px;
+}
+
+.conn-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 50%;
+
+}
+.connections{
+    color: white;
+    margin: 0
+}
+.Logout-button{
+    -webkit-appearance: none; /* iOS Safari */
+    appearance: none;
+
+    display: inline-block;
+    width: 10%;
+    padding: 12px;
+    margin-top: 20px;
+
+    background-color: #e5e5e5; 
+    color: #111;                 
+    border: 1px solid #bdbdbd;   
+    border-radius: 6px;          
+    font: inherit;              
+    line-height: 1;              
+    text-decoration: none; 
+    font-size: small;
+}
+
+.Logout-button:hover{
+    background-color: rgb(191, 190, 192);
+}
